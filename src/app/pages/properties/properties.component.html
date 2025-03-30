@@ -1,9 +1,10 @@
-<!-- properties-list.component.html -->
-<div class="container-fluid mt-4">
+<div class="container-fluid">
   <div class="row">
-    <!-- Static Filter UI -->
-    <div class="col-md-4 mb-4">
-      <div class="card shadow-sm p-3">
+    <div
+      style="height: calc(100vh - 56px);"
+      class="col-md-4 mb-4 border-end pt-4"
+    >
+      <div class="py-1 px-2">
         <form>
           <!-- Search Bar -->
           <div class="mb-4">
@@ -70,7 +71,7 @@
     </div>
 
     <!-- Properties List with Pagination -->
-    <div class="col-md-8">
+    <div class="col-md-8 pt-4">
       <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
         <div class="col" *ngFor="let property of paginatedProperties">
           <app-propertie-card [property]="property" />

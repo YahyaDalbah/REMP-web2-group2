@@ -13,7 +13,6 @@ export class PropertiesComponent {
   currentPage = 1;
   pageSize = 3;
 
-  // Mock data - replace with your actual data source
   properties: Property[] = [
     {
       title: 'Modern Apartment',
