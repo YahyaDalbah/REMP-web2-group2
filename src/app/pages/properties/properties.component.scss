@@ -1,0 +1,24 @@
+/* properties-list.component.scss */
+.page-item {
+  cursor: pointer;
+  &.active .page-link {
+    background-color: #0d6efd;
+    border-color: #0d6efd;
+    color: white;
+  }
+}
+
+.form-control:disabled,
+.form-check-input:disabled,
+.form-range:disabled {
+  cursor: not-allowed;
+  opacity: 0.6;
+}
+
+.property-card {
+  transition: transform 0.2s;
+
+  &:hover {
+    transform: translateY(-5px);
+  }
+}

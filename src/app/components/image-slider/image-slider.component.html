@@ -1,0 +1,24 @@
+<div class="slider-container">
+  <div
+    class="slide"
+    *ngFor="let slide of slides; let i = index"
+    [class.active]="i === activeIndex"
+    [style.background-image]="'url(' + slide + ')'"
+  ></div>
+
+  <div class="search-container">
+    <div class="input-group search-box">
+      <input
+        type="text"
+        class="form-control"
+        placeholder="Search properties..."
+      />
+      <button class="btn btn-primary">
+        <i class="bi bi-search"></i>
+      </button>
+    </div>
+  </div>
+
+  <button class="arrow left-arrow" (click)="prevSlide()">&#10094;</button>
+  <button class="arrow right-arrow" (click)="nextSlide()">&#10095;</button>
+</div>

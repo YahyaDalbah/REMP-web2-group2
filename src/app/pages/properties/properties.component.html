@@ -1,0 +1,96 @@
+<!-- properties-list.component.html -->
+<div class="container-fluid mt-4">
+  <div class="row">
+    <!-- Static Filter UI -->
+    <div class="col-md-4 mb-4">
+      <div class="card shadow-sm p-3">
+        <form>
+          <!-- Search Bar -->
+          <div class="mb-4">
+            <input
+              type="text"
+              class="form-control"
+              placeholder="Search properties..."
+            />
+          </div>
+
+          <!-- Rent/Sale Checkboxes -->
+          <div class="mb-4">
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="forRent" />
+              <label class="form-check-label" for="forRent">For Rent</label>
+            </div>
+            <div class="form-check">
+              <input class="form-check-input" type="checkbox" id="forSale" />
+              <label class="form-check-label" for="forSale">For Sale</label>
+            </div>
+          </div>
+
+          <!-- Bed/Bath Inputs -->
+          <div class="row mb-4">
+            <div class="col">
+              <label class="form-label">Bedrooms</label>
+              <input type="number" min="0" class="form-control" />
+            </div>
+            <div class="col">
+              <label class="form-label">Bathrooms</label>
+              <input type="number" min="0" class="form-control" />
+            </div>
+          </div>
+
+          <!-- Price Range -->
+          <div class="mb-4">
+            <label class="form-label">Price Range</label>
+            <input type="range" class="form-range" min="0" max="10000000" />
+            <div class="row">
+              <div class="col">
+                <input
+                  type="number"
+                  class="form-control"
+                  min="0"
+                  max="10000000"
+                />
+              </div>
+              <div class="col">
+                <input
+                  type="number"
+                  class="form-control"
+                  min="0"
+                  max="10000000"
+                />
+              </div>
+            </div>
+          </div>
+
+          <button class="btn btn-primary w-100" type="button">
+            Apply Filters
+          </button>
+        </form>
+      </div>
+    </div>
+
+    <!-- Properties List with Pagination -->
+    <div class="col-md-8">
+      <div class="row row-cols-1 row-cols-md-2 row-cols-lg-3 g-4">
+        <div class="col" *ngFor="let property of paginatedProperties">
+          <app-propertie-card [property]="property" />
+        </div>
+      </div>
+
+      <!-- Pagination -->
+      <nav *ngIf="properties.length > pageSize" class="mt-4">
+        <ul class="pagination justify-content-center">
+          <li
+            class="page-item"
+            *ngFor="let page of getPageNumbers()"
+            [class.active]="page === currentPage"
+          >
+            <a class="page-link" (click)="pageChanged(page)">
+              {{ page }}
+            </a>
+          </li>
+        </ul>
+      </nav>
+    </div>
+  </div>
+</div>
