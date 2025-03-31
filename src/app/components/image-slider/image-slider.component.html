@@ -1,12 +1,12 @@
 <div class="slider-container">
   <div
     class="slide"
-    *ngFor="let slide of slides; let i = index"
+    *ngFor="let slide of slides(); let i = index"
     [class.active]="i === activeIndex"
     [style.background-image]="'url(' + slide + ')'"
   ></div>
 
-  <div class="search-container">
+  <div *ngIf="showSearchBar()" class="search-container">
     <div class="input-group search-box">
       <input
         type="text"
