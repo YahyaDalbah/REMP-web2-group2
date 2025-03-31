@@ -1,4 +1,4 @@
-<div class="card h-100 shadow-sm">
+<div class="card h-100 shadow-sm" [routerLink]="['/properties', property().id]">
   <div class="card-img-top-container">
     <img [src]="property().image" class="card-img-top" alt="Property image" />
   </div>
