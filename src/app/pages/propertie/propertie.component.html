@@ -42,7 +42,7 @@
   </div>
 
   <!-- Add to Favorites -->
-  <button class="btn btn-danger w-100 mt-4" (click)="toggleFavorite()">
+  <button class="btn btn-danger w-100 mt-4 " (click)="toggleFavorite()">
     <i class="bi {{ isFavorite ? 'bi-heart-fill' : 'bi-heart' }} me-2"></i>
     {{ isFavorite ? "Remove from Favorites" : "Add to Favorites" }}
   </button>
@@ -64,7 +64,7 @@
   </div>
 
   <!-- Action Buttons -->
-  <div class="mt-4">
+  <div class="my-4">
     <button *ngIf="property.forRent" class="btn btn-outline-success w-100 mb-4">
       Rent Now
     </button>
