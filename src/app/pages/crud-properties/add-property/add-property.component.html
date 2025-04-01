@@ -1,0 +1,152 @@
+<div class="container mt-4">
+  <h2>{{ isEdit ? "Edit Property" : "Add New Property" }}</h2>
+
+  <form [formGroup]="form" (ngSubmit)="onSubmit()">
+    <div class="row g-3">
+      <!-- Title -->
+      <div class="col-12">
+        <label class="form-label">Title</label>
+        <input type="text" class="form-control" formControlName="title" />
+        <div *ngIf="shouldShowErrorMessage('title')" class="text-danger">
+          Title is required
+        </div>
+      </div>
+
+      <!-- Price -->
+      <div class="col-md-6">
+        <label class="form-label">Price</label>
+        <input type="number" class="form-control" formControlName="price" />
+        <div *ngIf="shouldShowErrorMessage('price')" class="text-danger">
+          Price should be more than 0
+        </div>
+      </div>
+
+      <!-- Location -->
+      <div class="col-md-6">
+        <label class="form-label">Location</label>
+        <input type="text" class="form-control" formControlName="location" />
+        <div *ngIf="shouldShowErrorMessage('location')" class="text-danger">
+          Location is required
+        </div>
+      </div>
+
+      <!-- Bedrooms/Bathrooms -->
+      <div class="col-md-6">
+        <label class="form-label">Bedrooms</label>
+        <input type="number" class="form-control" formControlName="bedrooms" />
+        <div *ngIf="shouldShowErrorMessage('bedrooms')" class="text-danger">
+          Bedrooms should be more than 0
+        </div>
+      </div>
+      <div class="col-md-6">
+        <label class="form-label">Bathrooms</label>
+        <input type="number" class="form-control" formControlName="bathrooms" />
+        <div *ngIf="shouldShowErrorMessage('bathrooms')" class="text-danger">
+          Bathrooms should be more than 0
+        </div>
+      </div>
+
+      <!-- Status -->
+      <div class="col-12">
+        <div class="form-check">
+          <input
+            id="forRent"
+            class="form-check-input"
+            type="checkbox"
+            formControlName="forRent"
+          />
+          <label class="form-check-label" for="forRent"
+            >Available for Rent</label
+          >
+        </div>
+        <div class="form-check">
+          <input
+            class="form-check-input"
+            type="checkbox"
+            formControlName="forSale"
+            id="forSale"
+          />
+          <label class="form-check-label" for="forSale"
+            >Available for Sale</label
+          >
+        </div>
+        <div
+          *ngIf="
+            showErrorMessage &&
+            !this.form.value.forSale &&
+            !this.form.value.forRent
+          "
+          class="text-danger"
+        >
+          it should be either for sale or rent or both
+        </div>
+      </div>
+
+      <!-- Images -->
+      <div class="col-12">
+        <label class="form-label d-block">Images</label>
+        <label for="imageURL" class="col-form-label-sm">Image URL</label>
+        <div class="input-group">
+          <input
+            type="text"
+            id="imageURL"
+            class="form-control"
+            formControlName="imageURL"
+            (keydown.enter)="addImage($event)"
+          />
+          <button
+            type="button"
+            class="btn btn-outline-secondary"
+            (click)="addImage($event)"
+          >
+            Add Image
+          </button>
+        </div>
+
+        <div class="mt-2">
+          <div
+            *ngFor="let url of currentImageUrls; let i = index"
+            class="d-inline-block me-2 position-relative"
+          >
+            <img
+              [src]="url"
+              class="img-thumbnail"
+              style="width: 100px; height: 100px"
+            />
+            <button
+              type="button"
+              class="btn btn-danger btn-sm position-absolute top-0 end-0"
+              (click)="removeImage(i)"
+            >
+              <i class="bi bi-x"></i>
+            </button>
+          </div>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="col-12">
+        <label class="form-label">Description</label>
+        <textarea
+          class="form-control"
+          rows="4"
+          formControlName="description"
+        ></textarea>
+      </div>
+
+      <!-- Buttons -->
+      <div class="col-12">
+        <button type="submit" class="btn btn-primary me-2">
+          {{ isEdit ? "Update" : "Save" }}
+        </button>
+        <button
+          type="button"
+          class="btn btn-outline-secondary"
+          [routerLink]="`/profile/${userId}/properties`"
+        >
+          Cancel
+        </button>
+      </div>
+    </div>
+  </form>
+</div>

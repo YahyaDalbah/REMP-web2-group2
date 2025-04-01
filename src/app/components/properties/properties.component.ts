@@ -1,7 +1,8 @@
-import { Component, input } from '@angular/core';
+import { Component, inject, input, OnInit } from '@angular/core';
 import { PropertieCardComponent } from '../propertie-card/propertie-card.component';
-import { properties, Property } from '../../types';
+import { Property } from '../../types';
 import { CommonModule } from '@angular/common';
+import { PropertyService } from '../../sevices/poperty.service';
 
 @Component({
   selector: 'app-properties-home',
@@ -9,13 +10,17 @@ import { CommonModule } from '@angular/common';
   templateUrl: './properties.component.html',
   styleUrl: './properties.component.scss',
 })
-export class PropertiesHomeComponent {
+export class PropertiesHomeComponent implements OnInit {
   title = input.required<String>();
   isForRent = input.required<boolean>();
-  
+  propertiesService = inject(PropertyService);
+  properties: Property[] = [];
+  ngOnInit(): void {
+    this.properties = this.propertiesService.getProperties();
+  }
 
   get filteredProperties() {
-    return properties.filter((property) =>
+    return this.properties.filter((property) =>
       this.isForRent() ? property.forRent : property.forSale
     );
   }

@@ -1,0 +1,57 @@
+<div class="container mt-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>Manage Properties</h2>
+    <a [routerLink]="`/profile/${userId}/properties/add`" class="btn btn-success">
+      <i class="bi bi-plus-lg"></i> Add New Property
+    </a>
+  </div>
+
+  <div class="table-responsive">
+    <table class="table table-striped table-hover">
+      <thead>
+        <tr>
+          <th>Title</th>
+          <th>Price</th>
+          <th>Location</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let property of properties">
+          <td>{{ property.title }}</td>
+          <td>{{ property.price | currency }}</td>
+          <td>{{ property.location }}</td>
+          <td>
+            <span class="badge bg-success" *ngIf="property.forRent"
+              >For Rent</span
+            >
+            <span
+              class="badge bg-danger {{
+                property.forRent && property.forSale ? 'ms-2' : ''
+              }}"
+              *ngIf="property.forSale"
+              >For Sale</span
+            >
+          </td>
+          <td>
+            <div class="btn-group">
+              <a
+                [routerLink]="`/profile/${userId}/properties/edit/${property.id}`"
+                class="btn btn-primary btn-sm"
+              >
+                <i class="bi bi-pencil"></i>
+              </a>
+              <button
+                class="btn btn-danger btn-sm"
+                (click)="deleteProperty(property.id)"
+              >
+                <i class="bi bi-trash"></i>
+              </button>
+            </div>
+          </td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
