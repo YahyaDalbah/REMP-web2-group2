@@ -1,7 +1,8 @@
-import { Component, signal } from '@angular/core';
-import { properties, Property } from '../../types';
+import { Component, inject, OnInit, signal } from '@angular/core';
+import { Property } from '../../types';
 import { PropertieCardComponent } from '../../components/propertie-card/propertie-card.component';
 import { CommonModule } from '@angular/common';
+import { PropertyService } from '../../sevices/poperty.service';
 
 @Component({
   selector: 'app-properties',
@@ -9,18 +10,23 @@ import { CommonModule } from '@angular/common';
   templateUrl: './properties.component.html',
   styleUrl: './properties.component.scss',
 })
-export class PropertiesComponent {
+export class PropertiesComponent implements OnInit {
   currentPage = 1;
   pageSize = 3;
-  properties = signal(properties);
+  propertiyService = inject(PropertyService);
+  properties: Property[] = [];
+
+  ngOnInit(): void {
+    this.properties = this.propertiyService.getProperties();
+  }
 
   get paginatedProperties() {
     const startIndex = (this.currentPage - 1) * this.pageSize;
-    return this.properties().slice(startIndex, startIndex + this.pageSize);
+    return this.properties.slice(startIndex, startIndex + this.pageSize);
   }
 
   get totalPages(): number {
-    return Math.ceil(this.properties().length / this.pageSize);
+    return Math.ceil(this.properties.length / this.pageSize);
   }
 
   pageChanged(newPage: number) {
