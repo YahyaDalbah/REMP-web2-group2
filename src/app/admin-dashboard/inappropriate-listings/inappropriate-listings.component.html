@@ -1,0 +1,132 @@
+<div class="inappropriate-listings">
+  <div class="page-header">
+    <h1>Inappropriate Listings Management</h1>
+    <p>Review and manage reported property listings</p>
+  </div>
+
+  <div class="filters">
+    <div class="search-box">
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (input)="onSearch()" 
+        placeholder="Search by title, reason or description"
+      >
+    </div>
+    <div class="status-filter">
+      <select [(ngModel)]="statusFilter" (change)="onStatusFilterChange()">
+        <option value="all">All Status</option>
+        <option value="pending">Pending</option>
+        <option value="reviewed">Reviewed</option>
+        <option value="removed">Removed</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="listings-table">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Property</th>
+          <th>Reported By</th>
+          <th>Reason</th>
+          <th>Date</th>
+          <th>Status</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (listing of filteredListings; track listing.id) {
+          <tr>
+            <td>{{ listing.id }}</td>
+            <td>{{ listing.propertyTitle }}</td>
+            <td>{{ listing.reporterName }}</td>
+            <td>{{ listing.reason }}</td>
+            <td>{{ listing.reportDate | date:'mediumDate' }}</td>
+            <td>
+              <span class="status-badge {{ listing.status }}">{{ listing.status }}</span>
+            </td>
+            <td class="actions">
+              <button class="action-btn view" (click)="viewListingDetails(listing)">View Details</button>
+              <button class="action-btn review" (click)="updateListingStatus(listing, 'reviewed')" [disabled]="listing.status === 'reviewed'">Mark Reviewed</button>
+              <button class="action-btn remove" (click)="updateListingStatus(listing, 'removed')" [disabled]="listing.status === 'removed'">Remove Listing</button>
+            </td>
+          </tr>
+        }
+        @empty {
+          <tr>
+            <td colspan="7" class="no-data">No reported listings found</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+
+  @if (selectedListing) {
+    <div class="listing-details-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>Reported Listing Details</h2>
+          <button class="close-btn" (click)="closeListingDetails()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="listing-images">
+            @for (image of selectedListing.images; track image) {
+              <img [src]="image" alt="{{ selectedListing.propertyTitle }}">
+            }
+          </div>
+          
+          <div class="listing-details">
+            <div class="detail-section">
+              <h3>Property Information</h3>
+              <div class="detail-item">
+                <span class="label">Property ID:</span>
+                <span class="value">{{ selectedListing.propertyId }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Property Title:</span>
+                <span class="value">{{ selectedListing.propertyTitle }}</span>
+              </div>
+            </div>
+            
+            <div class="detail-section">
+              <h3>Report Information</h3>
+              <div class="detail-item">
+                <span class="label">Report ID:</span>
+                <span class="value">{{ selectedListing.id }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Reported By:</span>
+                <span class="value">{{ selectedListing.reporterName }} (ID: {{ selectedListing.reportedBy }})</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Report Date:</span>
+                <span class="value">{{ selectedListing.reportDate | date:'fullDate' }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Status:</span>
+                <span class="value status-badge {{ selectedListing.status }}">{{ selectedListing.status }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Reason:</span>
+                <span class="value">{{ selectedListing.reason }}</span>
+              </div>
+              <div class="detail-item">
+                <span class="label">Description:</span>
+                <span class="value description">{{ selectedListing.description }}</span>
+              </div>
+            </div>
+          </div>
+          
+          <div class="modal-actions">
+            <button class="action-btn pending" (click)="updateListingStatus(selectedListing, 'pending')" [disabled]="selectedListing.status === 'pending'">Mark as Pending</button>
+            <button class="action-btn review" (click)="updateListingStatus(selectedListing, 'reviewed')" [disabled]="selectedListing.status === 'reviewed'">Mark as Reviewed</button>
+            <button class="action-btn remove" (click)="updateListingStatus(selectedListing, 'removed')" [disabled]="selectedListing.status === 'removed'">Remove Listing</button>
+            <button class="action-btn delete" (click)="removeListing(selectedListing.id)">Delete Report</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

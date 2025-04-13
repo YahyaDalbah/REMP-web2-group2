@@ -9,5 +9,11 @@ import { NavComponent } from './components/nav/nav.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
+  isAdmin = true;
+  isSidebarCollapsed = false;
+
+  toggleSidebar() {
+    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  }
   title = 'remp-group2-web2';
 }
