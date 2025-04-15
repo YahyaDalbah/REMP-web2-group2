@@ -4,8 +4,17 @@ import { PropertiesComponent } from './pages/properties/properties.component';
 import { PropertieComponent } from './pages/propertie/propertie.component';
 import { CrudPropertiesComponent } from './pages/crud-properties/crud-properties.component';
 import { AddPropertyComponent } from './pages/crud-properties/add-property/add-property.component';
-
+import { LoginComponent } from './components/login/login.component';
+import { SignUpComponent } from './components/sign-up/sign-up.component';
 export const routes: Routes = [
+  {
+    path: 'login',
+    component: LoginComponent,
+  },
+  {
+    path: 'SignUp',
+    component: SignUpComponent,
+  },
   {
     path: '',
     component: HomeComponent,
@@ -40,9 +49,9 @@ export const routes: Routes = [
   {
     path: 'dashboard/users',
     loadComponent: () =>
-      import('./admin-dashboard/users-management/users-management.component').then(
-        (m) => m.UsersManagementComponent
-      ),
+      import(
+        './admin-dashboard/users-management/users-management.component'
+      ).then((m) => m.UsersManagementComponent),
   },
   {
     path: 'dashboard/properties',
@@ -61,13 +70,15 @@ export const routes: Routes = [
   {
     path: 'dashboard/inappropriate-listings',
     loadComponent: () =>
-      import('./admin-dashboard/inappropriate-listings/inappropriate-listings.component').then(
-        (m) => m.InappropriateListingsComponent
-      ),
+      import(
+        './admin-dashboard/inappropriate-listings/inappropriate-listings.component'
+      ).then((m) => m.InappropriateListingsComponent),
   },
   {
     path: 'dashboard/reports',
     loadComponent: () =>
-      import('./admin-dashboard/reports/reports.component').then((m) => m.ReportsComponent),
+      import('./admin-dashboard/reports/reports.component').then(
+        (m) => m.ReportsComponent
+      ),
   },
 ];
