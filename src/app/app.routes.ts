@@ -12,7 +12,7 @@ export const routes: Routes = [
     component: LoginComponent,
   },
   {
-    path: 'SignUp',
+    path: 'signup',
     component: SignUpComponent,
   },
   {
