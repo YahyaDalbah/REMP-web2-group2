@@ -1,0 +1,82 @@
+<div class="reports-management">
+  <div class="page-header">
+    <h1>Reports</h1>
+    <p>Generate and view reports about properties, transactions, and users</p>
+  </div>
+
+  <div class="report-actions">
+    <div class="generate-report">
+      <h3>Generate New Report</h3>
+      <div class="report-form">
+        <select [(ngModel)]="selectedReportType">
+          <option value="">Select Report Type</option>
+          @for (type of reportTypes; track type.id) {
+            <option [value]="type.id">{{ type.name }}</option>
+          }
+        </select>
+        <button class="generate-btn" (click)="generateReport()" [disabled]="!selectedReportType">Generate Report</button>
+      </div>
+    </div>
+  </div>
+
+  <div class="reports-grid">
+    @for (report of reports; track report.id) {
+      <div class="report-card">
+        <div class="report-header">
+          <h3>{{ report.title }}</h3>
+          <p>{{ report.description }}</p>
+        </div>
+        <div class="report-info">
+          <span class="report-type">Type: {{ report.type }}</span>
+          <span class="report-date">Generated: {{ report.createdAt | date:'medium' }}</span>
+        </div>
+        <div class="report-actions">
+          <button class="action-btn view" (click)="viewReport(report)">View Report</button>
+          <button class="action-btn export-pdf" (click)="exportToPDF(report.id)">Export to PDF</button>
+          <button class="action-btn export-excel" (click)="exportToExcel(report.id)">Export to Excel</button>
+        </div>
+      </div>
+    }
+    @empty {
+      <div class="no-data">No reports available. Generate a new report to get started.</div>
+    }
+  </div>
+
+  @if (selectedReport) {
+    <div class="report-details-modal">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h2>{{ selectedReport.title }}</h2>
+          <button class="close-btn" (click)="closeReport()">×</button>
+        </div>
+        <div class="modal-body">
+          <div class="report-description">
+            <p>{{ selectedReport.description }}</p>
+            <p class="report-date">Generated on: {{ selectedReport.createdAt | date:'medium' }}</p>
+          </div>
+          
+          <div class="report-chart">
+            <!-- In a real application, this would be a chart component -->
+            <div class="chart-placeholder">
+              <p>Chart visualization would be displayed here.</p>
+              <p>Chart Type: {{ selectedReport.type }}</p>
+              <div class="chart-data">
+                <h4>Data:</h4>
+                <ul>
+                  @for (label of selectedReport.data.labels; track label; let i = $index) {
+                    <li>{{ label }}: {{ selectedReport.data.datasets[0].data[i] }}</li>
+                  }
+                </ul>
+              </div>
+            </div>
+          </div>
+          
+          <div class="modal-actions">
+            <button class="action-btn export-pdf" (click)="exportToPDF(selectedReport.id)">Export to PDF</button>
+            <button class="action-btn export-excel" (click)="exportToExcel(selectedReport.id)">Export to Excel</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  }
+</div>

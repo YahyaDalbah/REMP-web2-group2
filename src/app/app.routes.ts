@@ -19,15 +19,55 @@ export const routes: Routes = [
     component: PropertieComponent,
   },
   {
-    path: "profile/:userId/properties",
-    component: CrudPropertiesComponent
+    path: 'profile/:userId/properties',
+    component: CrudPropertiesComponent,
   },
   {
-    path: "profile/:userId/properties/add",
-    component: AddPropertyComponent
+    path: 'profile/:userId/properties/add',
+    component: AddPropertyComponent,
   },
   {
     path: 'profile/:userId/properties/edit/:id',
-    component: AddPropertyComponent
-  }
+    component: AddPropertyComponent,
+  },
+  {
+    path: 'dashboard',
+    loadComponent: () =>
+      import('./admin-dashboard/dashboard/dashboard.component').then(
+        (m) => m.DashboardComponent
+      ),
+  },
+  {
+    path: 'dashboard/users',
+    loadComponent: () =>
+      import('./admin-dashboard/users-management/users-management.component').then(
+        (m) => m.UsersManagementComponent
+      ),
+  },
+  {
+    path: 'dashboard/properties',
+    loadComponent: () =>
+      import('./admin-dashboard/properties/properties.component').then(
+        (m) => m.AdminPropertiesComponent
+      ),
+  },
+  {
+    path: 'dashboard/transactions',
+    loadComponent: () =>
+      import('./admin-dashboard/transactions/transactions.component').then(
+        (m) => m.TransactionsComponent
+      ),
+  },
+  {
+    path: 'dashboard/inappropriate-listings',
+    loadComponent: () =>
+      import('./admin-dashboard/inappropriate-listings/inappropriate-listings.component').then(
+        (m) => m.InappropriateListingsComponent
+      ),
+  },
+  {
+    path: 'dashboard/reports',
+    loadComponent: () =>
+      import('./admin-dashboard/reports/reports.component').then((m) => m.ReportsComponent),
+  },
 ];

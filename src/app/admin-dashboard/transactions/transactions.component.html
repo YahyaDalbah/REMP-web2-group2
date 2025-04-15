@@ -1,0 +1,141 @@
+<div class="transactions-management">
+  <div class="page-header">
+    <h1>Transactions Management</h1>
+    <p>View and manage all property transactions in the system</p>
+  </div>
+
+  <div class="filters">
+    <div class="search-box">
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (input)="onSearch()" 
+        placeholder="Search by property, buyer or seller"
+      >
+    </div>
+    <div class="status-filter">
+      <select [(ngModel)]="statusFilter" (change)="onStatusFilterChange()">
+        <option value="all">All Status</option>
+        <option value="pending">Pending</option>
+        <option value="completed">Completed</option>
+        <option value="cancelled">Cancelled</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="transactions-table">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Property</th>
+          <th>Buyer</th>
+          <th>Seller</th>
+          <th>Amount</th>
+          <th>Status</th>
+          <th>Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr *ngFor="let transaction of filteredTransactions; trackBy: trackByTransactionId">
+          <td>{{ transaction.id }}</td>
+          <td>{{ transaction.propertyTitle }}</td>
+          <td>{{ transaction.buyerName }}</td>
+          <td>{{ transaction.sellerName }}</td>
+          <td>${{ transaction.amount.toLocaleString() }}</td>
+          <td>
+            <span class="status-badge {{ transaction.status }}">{{ transaction.status }}</span>
+          </td>
+          <td>{{ transaction.date | date:'mediumDate' }}</td>
+          <td class="actions">
+            <button class="action-btn view" (click)="viewTransactionDetails(transaction)">View Details</button>
+            <button class="action-btn complete" (click)="updateTransactionStatus(transaction, 'completed')" [disabled]="transaction.status === 'completed'">Complete</button>
+            <button class="action-btn cancel" (click)="updateTransactionStatus(transaction, 'cancelled')" [disabled]="transaction.status === 'cancelled'">Cancel</button>
+          </td>
+        </tr>
+        <tr *ngIf="filteredTransactions.length === 0">
+          <td colspan="8" class="no-data">No transactions found</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+
+  <div *ngIf="selectedTransaction" class="transaction-details-modal">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h2>Transaction Details</h2>
+        <button class="close-btn" (click)="closeTransactionDetails()">×</button>
+      </div>
+      <div class="modal-body">
+        <div class="transaction-details">
+          <div class="detail-section">
+            <h3>Transaction Information</h3>
+            <div class="detail-item">
+              <span class="label">Transaction ID:</span>
+              <span class="value">{{ selectedTransaction.id }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Status:</span>
+              <span class="value status-badge {{ selectedTransaction.status }}">{{ selectedTransaction.status }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Date:</span>
+              <span class="value">{{ selectedTransaction.date | date:'fullDate' }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Amount:</span>
+              <span class="value">${{ selectedTransaction.amount.toLocaleString() }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Payment Method:</span>
+              <span class="value">{{ selectedTransaction.paymentMethod }}</span>
+            </div>
+          </div>
+          
+          <div class="detail-section">
+            <h3>Property Information</h3>
+            <div class="detail-item">
+              <span class="label">Property ID:</span>
+              <span class="value">{{ selectedTransaction.propertyId }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Property Title:</span>
+              <span class="value">{{ selectedTransaction.propertyTitle }}</span>
+            </div>
+          </div>
+          
+          <div class="detail-section">
+            <h3>Buyer Information</h3>
+            <div class="detail-item">
+              <span class="label">Buyer ID:</span>
+              <span class="value">{{ selectedTransaction.buyerId }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Buyer Name:</span>
+              <span class="value">{{ selectedTransaction.buyerName }}</span>
+            </div>
+          </div>
+          
+          <div class="detail-section">
+            <h3>Seller Information</h3>
+            <div class="detail-item">
+              <span class="label">Seller ID:</span>
+              <span class="value">{{ selectedTransaction.sellerId }}</span>
+            </div>
+            <div class="detail-item">
+              <span class="label">Seller Name:</span>
+              <span class="value">{{ selectedTransaction.sellerName }}</span>
+            </div>
+          </div>
+        </div>
+        
+        <div class="modal-actions">
+          <button class="action-btn pending" (click)="updateTransactionStatus(selectedTransaction, 'pending')" [disabled]="selectedTransaction.status === 'pending'">Mark as Pending</button>
+          <button class="action-btn complete" (click)="updateTransactionStatus(selectedTransaction, 'completed')" [disabled]="selectedTransaction.status === 'completed'">Mark as Completed</button>
+          <button class="action-btn cancel" (click)="updateTransactionStatus(selectedTransaction, 'cancelled')" [disabled]="selectedTransaction.status === 'cancelled'">Mark as Cancelled</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
