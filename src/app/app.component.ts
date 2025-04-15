@@ -9,7 +9,7 @@ import { NavComponent } from './components/nav/nav.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  isAdmin = true;
+  isAdmin = false;
   isSidebarCollapsed = false;
 
   toggleSidebar() {
