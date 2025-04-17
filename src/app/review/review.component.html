@@ -1,0 +1,74 @@
+<div class="review-container">
+  <div class="create-post">
+    <div class="post-header">
+      <div class="user-info">
+        <img [src]="'assets/images/pic.jpg'" alt="User Avatar" class="avatar">
+        <span class="user-name">Wafa Adham</span>
+      </div>
+      <button class="options-btn">
+        
+
+        <i class="fa fa-ellipsis-h"></i>
+      </button>
+    </div> 
+    <div class="post-input">
+      <textarea placeholder="Write your post or question here" [(ngModel)]="postContent"></textarea>
+      <div class="selected-image" *ngIf="selectedImage">
+        <img [src]="selectedImage" alt="Selected Image">
+        <button class="remove-image" (click)="selectedImage = null">×</button>
+      </div>
+    </div>
+    <div class="quick-post">
+      <img [src]="'assets/images/pic.jpg'" alt="User Avatar" class="avatar-small">
+      <input type="text" placeholder="Ask a question or start a post" class="quick-input">
+    </div>
+    <div class="post-actions">
+      <div class="left-actions">
+        <button class="action-btn" (click)="toggleMediaOptions()">
+          <i class="fa fa-image"></i> Add media
+        </button>
+        <div class="media-options" *ngIf="showMediaOptions">
+          <input type="file" accept="image/*" (change)="onFileSelected($event)" style="display: none" #fileInput>
+          <button class="option-btn" (click)="fileInput.click()">Upload Photo</button>
+          <button class="option-btn">Take Photo</button>
+          <button class="option-btn">Upload Video</button>
+        </div>
+        <button class="action-btn dropdown" (click)="toggleCategoryOptions()">
+          Add Category <i class="fa fa-chevron-down"></i>
+        </button>
+        <div class="category-options" *ngIf="showCategoryOptions">
+          <button class="option-btn">General</button>
+          <button class="option-btn">Question</button>
+          <button class="option-btn">Discussion</button>
+        </div>
+      </div>
+      <button class="post-btn" (click)="createPost()">Post</button>
+    </div>
+  </div>
+  <div class="posts-list">
+    <div class="post-item" *ngFor="let post of posts">
+      <div class="post-header">
+        <div class="user-info">
+          <img [src]="'assets/images/user.jpg'" alt="User Avatar" class="avatar">
+          <span class="user-name">{{post.userName}}</span>
+        </div>
+        <button class="options-btn">
+          <i class="fa fa-ellipsis-h"></i>
+        </button>
+      </div>
+      <div class="post-content">
+        {{post.content}}
+      </div>
+      <div class="post-actions">
+        <div class="left-actions">
+          <button class="action-btn" (click)="addLike(post)">
+            <i class="fa fa-thumbs-up"></i> {{post.likes}}
+          </button>
+          <button class="action-btn" (click)="addComment(post)">
+            <i class="fa fa-comment"></i> {{post.comments}}
+          </button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

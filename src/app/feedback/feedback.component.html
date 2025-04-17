@@ -1,0 +1,38 @@
+<div class="feedback-modal">
+  <div class="modal-header">
+    <h2>Share your feedback</h2>
+    <button class="close-btn" (click)="onCancel()">×</button>
+  </div> 
+
+  
+  <div class="modal-body">
+    <p>How was working in the Editor today?</p>
+    
+    <div class="feedback-buttons">
+      <button class="feedback-btn" 
+              [class.selected]="isPositive === true"
+              (click)="setFeedbackType(true)">
+        <i class="fa fa-thumbs-up"></i>
+      </button>
+      <button class="feedback-btn"
+              [class.selected]="isPositive === false"
+              (click)="setFeedbackType(false)">
+        <i class="fa fa-thumbs-down"></i>
+      </button>
+    </div>
+
+    <div class="feedback-text">
+      <p>Can you tell us more?</p>
+      <textarea 
+        [(ngModel)]="feedbackText"
+        placeholder="Add feedback"
+        rows="4">
+      </textarea>
+    </div>
+  </div>
+
+  <div class="modal-footer">
+    <button class="cancel-btn" (click)="onCancel()">Cancel</button>
+    <button class="submit-btn" (click)="onSubmit()">Submit</button>
+  </div>
+</div>
