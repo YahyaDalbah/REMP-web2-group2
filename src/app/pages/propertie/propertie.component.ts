@@ -4,10 +4,11 @@ import { ActivatedRoute, Router } from '@angular/router';
 import { Property } from '../../types';
 import { ImageSliderComponent } from '../../components/image-slider/image-slider.component';
 import { PropertyService } from '../../sevices/poperty.service';
+import { ReviewComponent } from "../../review/review.component";
 
 @Component({
   selector: 'app-propertie',
-  imports: [CommonModule, ImageSliderComponent],
+  imports: [CommonModule, ImageSliderComponent, ReviewComponent],
   templateUrl: './propertie.component.html',
   styleUrl: './propertie.component.scss',
 })
