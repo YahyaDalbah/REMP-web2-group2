@@ -1,5 +1,5 @@
 import { Component } from '@angular/core';
-import { RouterOutlet } from '@angular/router';
+import { Router, RouterOutlet } from '@angular/router';
 import { NavComponent } from './components/nav/nav.component';
 
 @Component({
@@ -9,11 +9,16 @@ import { NavComponent } from './components/nav/nav.component';
   styleUrl: './app.component.scss',
 })
 export class AppComponent {
-  isAdmin = false;
-  isSidebarCollapsed = false;
+  
+  constructor(private router: Router) {}
 
-  toggleSidebar() {
-    this.isSidebarCollapsed = !this.isSidebarCollapsed;
+  isLoginRoute(): boolean {
+    return this.router.url === '/login' || this.router.url === '/signup';
   }
+
+  isAdminDashboardRoute(): boolean {
+    return this.router.url.includes('/dashboard');
+  }
+
   title = 'remp-group2-web2';
 }

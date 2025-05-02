@@ -1,4 +1,4 @@
-@if(!isAdmin){
+@if(!isAdminDashboardRoute() && !isLoginRoute()){
 <app-nav></app-nav>
 }
 <router-outlet />
