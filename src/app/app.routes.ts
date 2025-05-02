@@ -6,6 +6,7 @@ import { CrudPropertiesComponent } from './pages/crud-properties/crud-properties
 import { AddPropertyComponent } from './pages/crud-properties/add-property/add-property.component';
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
+import { ProfileComponent } from './pages/profile/profile.component';
 export const routes: Routes = [
   {
     path: 'login',
@@ -26,6 +27,10 @@ export const routes: Routes = [
   {
     path: 'properties/:id',
     component: PropertieComponent,
+  },
+  {
+    path: 'profile',
+    component: ProfileComponent,
   },
   {
     path: 'profile/:userId/properties',

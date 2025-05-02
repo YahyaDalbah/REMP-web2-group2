@@ -1,4 +1,16 @@
-@if(!isAdmin){
+@if(!(isAdminDashboardRoute() || isLoginRoute())){
 <app-nav></app-nav>
-}
+} @if (isAdminDashboardRoute()) {
+<div class="main-layout">
+  <app-sidebar></app-sidebar>
+  <div class="content-area">
+    <app-header></app-header>
+    <main class="main-content">
+      <router-outlet />
+    </main>
+  </div>
+</div>
+} @else {
 <router-outlet />
+
+}
