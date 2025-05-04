@@ -5,24 +5,35 @@
       class="col-md-4 mb-4 border-end pt-4"
     >
       <div class="py-1 px-2">
-        <form>
+        <form [formGroup]="filterForm" (submit)="applyFilters()">
           <!-- Search Bar -->
           <div class="mb-4">
             <input
               type="text"
               class="form-control"
               placeholder="Search properties..."
+              formControlName="search"
             />
           </div>
 
           <!-- Rent/Sale Checkboxes -->
           <div class="mb-4">
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="forRent" />
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="forRent"
+                formControlName="forRent"
+              />
               <label class="form-check-label" for="forRent">For Rent</label>
             </div>
             <div class="form-check">
-              <input class="form-check-input" type="checkbox" id="forSale" />
+              <input
+                class="form-check-input"
+                type="checkbox"
+                id="forSale"
+                formControlName="forSale"
+              />
               <label class="form-check-label" for="forSale">For Sale</label>
             </div>
           </div>
@@ -31,39 +42,50 @@
           <div class="row mb-4">
             <div class="col">
               <label class="form-label">Bedrooms</label>
-              <input type="number" min="0" class="form-control" />
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                formControlName="bedrooms"
+              />
             </div>
             <div class="col">
               <label class="form-label">Bathrooms</label>
-              <input type="number" min="0" class="form-control" />
+              <input
+                type="number"
+                min="0"
+                class="form-control"
+                formControlName="bathrooms"
+              />
             </div>
           </div>
 
           <!-- Price Range -->
           <div class="mb-4">
             <label class="form-label">Price Range</label>
-            <input type="range" class="form-range" min="0" max="10000000" />
             <div class="row">
               <div class="col">
                 <input
+                  placeholder="Min Price"
                   type="number"
                   class="form-control"
                   min="0"
-                  max="10000000"
+                  formControlName="minPrice"
                 />
               </div>
               <div class="col">
                 <input
+                  placeholder="Max Price"
                   type="number"
                   class="form-control"
                   min="0"
-                  max="10000000"
+                  formControlName="maxPrice"
                 />
               </div>
             </div>
           </div>
 
-          <button class="btn btn-primary w-100" type="button">
+          <button class="btn btn-primary w-100" type="submit">
             Apply Filters
           </button>
         </form>
@@ -79,7 +101,7 @@
       </div>
 
       <!-- Pagination -->
-      <nav *ngIf="properties.length > pageSize" class="mt-4">
+      <nav *ngIf="filteredProperties.length > pageSize" class="mt-4">
         <ul class="pagination justify-content-center">
           <li
             class="page-item"
