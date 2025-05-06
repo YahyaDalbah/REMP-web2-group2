@@ -1,0 +1,70 @@
+.slider-container {
+  height: calc(100vh - 100px); 
+  position: relative;
+  background: #000;
+  overflow: hidden;
+
+  .slide {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    opacity: 0;
+    transition: opacity 0.5s ease-in-out;
+    background-size: cover;
+    background-position: center;
+
+    &.active {
+      opacity: 1;
+    }
+  }
+
+  .search-container {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+    width: 100%;
+    max-width: 600px;
+    padding: 0 15px;
+
+    .search-box {
+      box-shadow: 0 4px 20px rgba(0, 0, 0, 0.2);
+
+      .form-control {
+        height: 50px;
+        border: none;
+        padding-left: 1.5rem;
+      }
+
+      .btn {
+        padding: 0 1.5rem;
+      }
+    }
+  }
+
+  .arrow {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    background: rgba(0, 0, 0, 0.3);
+    border: none;
+    color: black;
+    padding: 1rem;
+    font-size: 3rem;
+    transition: all 0.3s ease;
+    z-index: 3;
+
+    &:hover {
+      background: rgba(0, 0, 0, 0.4);
+    }
+
+    &.left-arrow {
+      left: 20px;
+    }
+
+    &.right-arrow {
+      right: 20px;
+    }
+  }
+}

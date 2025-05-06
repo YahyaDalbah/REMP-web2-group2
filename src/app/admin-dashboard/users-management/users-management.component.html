@@ -1,0 +1,65 @@
+<div class="users-management">
+  <div class="page-header">
+    <h1>Users Management</h1>
+    <p>Manage all users in the system</p>
+  </div>
+
+  <div class="filters">
+    <div class="search-box">
+      <input 
+        type="text" 
+        [(ngModel)]="searchTerm" 
+        (input)="onSearch()" 
+        placeholder="Search by name or email"
+      >
+    </div>
+    <div class="status-filter">
+      <select [(ngModel)]="statusFilter" (change)="onStatusFilterChange()">
+        <option value="all">All Status</option>
+        <option value="active">Active</option>
+        <option value="inactive">Inactive</option>
+        <option value="suspended">Suspended</option>
+      </select>
+    </div>
+  </div>
+
+  <div class="users-table">
+    <table>
+      <thead>
+        <tr>
+          <th>ID</th>
+          <th>Name</th>
+          <th>Email</th>
+          <th>Role</th>
+          <th>Status</th>
+          <th>Registration Date</th>
+          <th>Actions</th>
+        </tr>
+      </thead>
+      <tbody>
+        @for (user of filteredUsers; track user.id) {
+          <tr>
+            <td>{{ user.id }}</td>
+            <td>{{ user.name }}</td>
+            <td>{{ user.email }}</td>
+            <td>{{ user.role }}</td>
+            <td>
+              <span class="status-badge {{ user.status }}">{{ user.status }}</span>
+            </td>
+            <td>{{ user.registrationDate | date:'mediumDate' }}</td>
+            <td class="actions">
+              <button class="action-btn activate" (click)="updateUserStatus(user, 'active')" [disabled]="user.status === 'active'">Activate</button>
+              <button class="action-btn suspend" (click)="updateUserStatus(user, 'suspended')" [disabled]="user.status === 'suspended'">Suspend</button>
+              <button class="action-btn delete" (click)="deleteUser(user.id)">Delete</button>
+            </td>
+          </tr>
+        }
+        @empty {
+          <tr>
+            <td colspan="7" class="no-data">No users found</td>
+          </tr>
+        }
+      </tbody>
+    </table>
+  </div>
+</div>

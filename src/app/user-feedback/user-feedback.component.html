@@ -1,0 +1,31 @@
+<div class="feedback-modal">
+  <div class="modal-header">
+    <h2>Share your feedback</h2>
+    <button type="button" class="close-btn" (click)="onClose()">×</button>
+  </div>
+  
+
+  <div class="modal-content">
+    <p class="feedback-description">I find this editor fast and easy to use:</p>
+    <p class="scale-label">1-strongly disagree & 5-strongly agree</p>
+ 
+    <div class="number-rating">
+      <div class="number-buttons">
+        <button *ngFor="let num of numbers"
+                [class.active]="rating === num"
+                (click)="setRating(num)"
+                class="number-btn">
+          {{ num }}
+        </button>
+      </div>
+    </div>
+
+    <div class="modal-actions">
+      <button class="cancel-btn" (click)="onClose()">Cancel</button>
+      <button class="submit-btn" 
+              [disabled]="!rating"
+              (click)="onSubmit()">Submit</button>
+    </div>
+  </div>
+</div>
+  

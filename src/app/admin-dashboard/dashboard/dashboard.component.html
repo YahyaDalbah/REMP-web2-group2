@@ -1,0 +1,130 @@
+<div class="dashboard">
+  <div class="page-header">
+    <h1>Dashboard</h1>
+    <p>Overview of your real estate management system</p>
+  </div>
+
+  <div class="stats-cards">
+    <div class="stat-card users">
+      <div class="stat-icon">👥</div>
+      <div class="stat-content">
+        <h3>Users</h3>
+        <div class="stat-numbers">
+          <div class="main-stat">{{ stats.totalUsers }}</div>
+          <div class="sub-stat">{{ stats.activeUsers }} active</div>
+        </div>
+      </div>
+      <a [routerLink]="['/dashboard/users']" class="stat-link">Manage Users</a>
+    </div>
+
+    <div class="stat-card properties">
+      <div class="stat-icon">🏠</div>
+      <div class="stat-content">
+        <h3>Properties</h3>
+        <div class="stat-numbers">
+          <div class="main-stat">{{ stats.totalProperties }}</div>
+          <div class="sub-stat">{{ stats.availableProperties }} available</div>
+        </div>
+      </div>
+      <a [routerLink]="['/dashboard/properties']" class="stat-link">View Properties</a>
+    </div>
+
+    <div class="stat-card transactions">
+      <div class="stat-icon">💰</div>
+      <div class="stat-content">
+        <h3>Transactions</h3>
+        <div class="stat-numbers">
+          <div class="main-stat">{{ stats.totalTransactions }}</div>
+          <div class="sub-stat">{{ stats.pendingTransactions }} pending</div>
+        </div>
+      </div>
+      <a [routerLink]="['/dashboard/transactions']" class="stat-link">View Transactions</a>
+    </div>
+
+    <div class="stat-card reports">
+      <div class="stat-icon">⚠️</div>
+      <div class="stat-content">
+        <h3>Reported Listings</h3>
+        <div class="stat-numbers">
+          <div class="main-stat">{{ stats.reportedListings }}</div>
+          <div class="sub-stat">{{ stats.pendingReports }} pending</div>
+        </div>
+      </div>
+      <a [routerLink]="['/dashboard/inappropriate-listings']" class="stat-link">Review Reports</a>
+    </div>
+  </div>
+
+  <div class="dashboard-sections">
+    <div class="dashboard-section">
+      <div class="section-header">
+        <h2>Recent Transactions</h2>
+        <a [routerLink]="['/dashboard/transactions']" class="view-all">View All</a>
+      </div>
+      <div class="section-content">
+        <table class="dashboard-table">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Buyer</th>
+              <th>Amount</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (transaction of recentTransactions; track transaction.id) {
+              <tr>
+                <td>{{ transaction.propertyTitle }}</td>
+                <td>{{ transaction.buyerName }}</td>
+                <td>${{ transaction.amount.toLocaleString() }}</td>
+                <td><span class="status-badge {{ transaction.status }}">{{ transaction.status }}</span></td>
+                <td>{{ transaction.date | date:'mediumDate' }}</td>
+              </tr>
+            }
+            @empty {
+              <tr>
+                <td colspan="5" class="no-data">No transactions found</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <div class="dashboard-section">
+      <div class="section-header">
+        <h2>Recent Reported Listings</h2>
+        <a [routerLink]="['/dashboard/inappropriate-listings']" class="view-all">View All</a>
+      </div>
+      <div class="section-content">
+        <table class="dashboard-table">
+          <thead>
+            <tr>
+              <th>Property</th>
+              <th>Reason</th>
+              <th>Reported By</th>
+              <th>Status</th>
+              <th>Date</th>
+            </tr>
+          </thead>
+          <tbody>
+            @for (listing of recentReportedListings; track listing.id) {
+              <tr>
+                <td>{{ listing.propertyTitle }}</td>
+                <td>{{ listing.reason }}</td>
+                <td>{{ listing.reporterName }}</td>
+                <td><span class="status-badge {{ listing.status }}">{{ listing.status }}</span></td>
+                <td>{{ listing.reportDate | date:'mediumDate' }}</td>
+              </tr>
+            }
+            @empty {
+              <tr>
+                <td colspan="5" class="no-data">No reported listings found</td>
+              </tr>
+            }
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>

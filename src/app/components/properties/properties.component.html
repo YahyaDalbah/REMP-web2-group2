@@ -1,0 +1,12 @@
+<div class="container my-5">
+  <div class="mb-4">
+    <h2 class="mb-0">{{title()}}</h2>
+    <a href="#" class="text-decoration-none">Show More</a>
+  </div>
+
+  <div class="row g-4">
+    <div class="col-md-4" *ngFor="let property of filteredProperties">
+      <app-propertie-card [property]="property" />
+    </div>
+  </div>
+</div>

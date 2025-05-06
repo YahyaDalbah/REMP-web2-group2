@@ -1,0 +1,101 @@
+// ملف النمط المخصص للتطبيق
+
+// الألوان الرئيسية
+$primary-color: #3498db;
+$secondary-color: #2c3e50;
+$success-color: #2ecc71;
+$warning-color: #f39c12;
+$danger-color: #e74c3c;
+$light-color: #f5f5f5;
+$dark-color: #333;
+
+// متغيرات إضافية
+$border-radius: 4px;
+$box-shadow: 0 2px 5px rgba(0, 0, 0, 0.1);
+$transition-speed: 0.3s;
+
+
+.status-badge {
+  padding: 4px 8px;
+  border-radius: 4px;
+  font-size: 12px;
+  font-weight: 500;
+  text-transform: capitalize;
+  
+  &.pending {
+    background-color: $warning-color;
+    color: white;
+  }
+  
+  &.completed {
+    background-color: $success-color;
+    color: white;
+  }
+  
+  &.cancelled {
+    background-color: $danger-color;
+    color: white;
+  }
+}
+
+// تخصيص أزرار الإجراءات
+.action-btn {
+  padding: 6px 12px;
+  border-radius: $border-radius;
+  border: none;
+  cursor: pointer;
+  transition: all $transition-speed;
+  
+  &.view {
+    background-color: $primary-color;
+    color: white;
+  }
+  
+  &.complete {
+    background-color: $success-color;
+    color: white;
+  }
+  
+  &.cancel {
+    background-color: $danger-color;
+    color: white;
+  }
+  
+  &.pending {
+    background-color: $warning-color;
+    color: white;
+  }
+  
+  &:disabled {
+    opacity: 0.5;
+    cursor: not-allowed;
+  }
+}
+
+// تخصيص تصميم الشريط الجانبي
+.sidebar {
+  background-color: $secondary-color;
+  color: white;
+  
+  .sidebar-nav {
+    a {
+      color: rgba(255, 255, 255, 0.8);
+      
+      &:hover, &.active {
+        color: white;
+        background-color: rgba(255, 255, 255, 0.1);
+      }
+    }
+  }
+}
+
+// تخصيص تصميم الرأس
+.top-header {
+  background-color: white;
+  box-shadow: $box-shadow;
+}
+
+// تخصيص تصميم المحتوى
+.content-wrapper {
+  background-color: $light-color;
+}

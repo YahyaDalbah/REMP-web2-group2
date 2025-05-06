@@ -1,0 +1,17 @@
+/* properties-list.component.scss */
+.form-range {
+  width: 100%;
+  margin: 1rem 0;
+}
+
+.page-item {
+  cursor: pointer;
+}
+
+.property-card {
+  transition: transform 0.2s;
+  
+  &:hover {
+    transform: translateY(-5px);
+  }
+}

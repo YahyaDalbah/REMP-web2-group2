@@ -1,0 +1,41 @@
+.card-img-top-container {
+  height: 200px;
+  overflow: hidden;
+}
+
+.card-img-top {
+  height: 100%;
+  width: 100%;
+  object-fit: cover;
+  transition: transform 0.3s ease;
+}
+
+.card:hover .card-img-top {
+  transform: scale(1.05);
+}
+
+.price-tag {
+  position: absolute;
+  bottom: 1rem;
+  left: 1rem;
+}
+
+.card {
+  transition: transform 0.2s ease;
+  cursor: pointer;
+}
+
+.card:hover {
+  transform: translateY(-5px);
+}
+
+.description {
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+  line-height: 1.4;
+  margin-bottom: 1rem;
+  min-height: 4.2em; /* (line-height * number of lines) */
+}
