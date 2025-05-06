@@ -39,6 +39,6 @@ export class ReviewPageComponent {
       this.reviews.push({ text: this.reviewText, rating: this.rating });
       this.reviewText = '';
       this.rating = 1;
-    }
+    } 
   }
 }

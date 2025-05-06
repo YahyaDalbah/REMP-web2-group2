@@ -14,7 +14,7 @@ export class PropertiesHomeComponent implements OnInit {
   title = input.required<String>();
   isForRent = input.required<boolean>();
   propertiesService = inject(PropertyService);
-  properties: Property[] = [];
+  properties: Property[] = []; 
   ngOnInit(): void {
     this.properties = this.propertiesService.getProperties();
   }

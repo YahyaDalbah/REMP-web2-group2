@@ -11,4 +11,4 @@ import { RouterLink } from '@angular/router';
 })
 export class PropertieCardComponent {
   property = input.required<Property>()
-}
+} 
