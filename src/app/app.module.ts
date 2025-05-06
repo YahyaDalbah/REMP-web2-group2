@@ -10,8 +10,7 @@ import { AppComponent } from './app.component';
 
 @NgModule({
   declarations: [
-    // Remove AppComponent from declarations
-    // ⚠️ Do not include ReviewPageComponent here if it's standalone
+    
   ],
   imports: [
     BrowserModule,
