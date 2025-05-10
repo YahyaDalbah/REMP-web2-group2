@@ -1,0 +1,27 @@
+<div class="review-container">
+    <h2>Property Reviews</h2>
+  
+    <!-- Review Form -->
+    <form (submit)="submitReview()">
+      <div class="mb-3">
+        <label for="reviewText" class="form-label">Your Review</label>
+        <textarea id="reviewText" class="form-control" [(ngModel)]="reviewText" rows="3"></textarea>
+      </div>
+      <div class="mb-3">
+        <label for="rating" class="form-label">Rating</label>
+        <select id="rating" class="form-select" [(ngModel)]="rating">
+          <option *ngFor="let r of [1, 2, 3, 4, 5]" [value]="r">{{ r }} Star</option>
+        </select>
+      </div>
+      <button type="submit" class="btn btn-primary">Submit Review</button>
+    </form>
+  
+    <!-- Display Reviews -->
+    <div class="reviews-list mt-4">
+      <h3>Existing Reviews</h3>
+      <div *ngFor="let review of reviews" class="review-item">
+        <p><strong>Rating:</strong> {{ review.rating }} Star</p>
+        <p>{{ review.text }}</p>
+      </div>
+    </div>
+  </div> 

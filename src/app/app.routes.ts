@@ -7,6 +7,9 @@ import { AddPropertyComponent } from './pages/crud-properties/add-property/add-p
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ProfileComponent } from './pages/profile/profile.component';
+import { ReviewComponent } from './review/review.component'; // Import ReviewComponent
+import { RatingModalComponent } from './rating-modal/rating-modal.component';
+
 export const routes: Routes = [
   {
     path: 'login',
@@ -43,6 +46,18 @@ export const routes: Routes = [
   {
     path: 'profile/:userId/properties/edit/:id',
     component: AddPropertyComponent,
+  },
+  {
+    path:'rate',
+    component: RatingModalComponent
+  },
+  {
+    path: 'buy',
+    component: PropertieComponent,
+  },
+  {
+    path: 'review',
+    component: ReviewComponent,
   },
   {
     path: 'dashboard',
@@ -87,3 +102,4 @@ export const routes: Routes = [
       ),
   },
 ];
+ 
