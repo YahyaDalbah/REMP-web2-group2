@@ -1,12 +1,12 @@
 import { Component } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
-
+import { RatingModalComponent } from '../rating-modal/rating-modal.component';
 
 @Component({
   selector: 'app-review',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  imports: [CommonModule, FormsModule, RatingModalComponent],
   templateUrl: './review.component.html',
   styleUrls: ['./review.component.scss']
 }) 
@@ -73,4 +73,11 @@ export class ReviewComponent {
       reader.readAsDataURL(file);
     }
   }
+
+  currentRating: number = 0;
+
+  onRatingChange(rating: number) {
+    this.currentRating = rating;
+  }
 }
+ 

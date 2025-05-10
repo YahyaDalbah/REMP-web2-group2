@@ -17,6 +17,9 @@
         <img [src]="selectedImage" alt="Selected Image">
         <button class="remove-image" (click)="selectedImage = null">×</button>
       </div>
+      <div class="rating-container">
+        <app-rating-modal (ratingChange)="onRatingChange($event)"></app-rating-modal>
+      </div>
     </div>
     <div class="quick-post">
       <img [src]="'assets/wafa.jpg'" alt="User Avatar" class="avatar-small">
@@ -64,10 +67,11 @@
           <button class="action-btn" (click)="addLike(post)">
             <i class="fa fa-thumbs-up"></i> {{post.likes}}
           </button>
+          
           <button class="action-btn" (click)="addComment(post)">
             <i class="fa fa-comment"></i> {{post.comments}}
           </button>
-        </div>
+        </div> 
       </div>
     </div>
   </div>

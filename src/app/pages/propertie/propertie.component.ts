@@ -13,7 +13,7 @@ import { ReviewComponent } from "../../review/review.component";
   styleUrl: './propertie.component.scss',
 })
 export class PropertieComponent {
-  property: Property;
+  property: Property; 
   isFavorite = false;
   showContactForm = signal(false);
   propertyService = inject(PropertyService);

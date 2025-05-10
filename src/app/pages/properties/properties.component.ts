@@ -10,7 +10,7 @@ import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
   imports: [PropertieCardComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './properties.component.html',
   styleUrl: './properties.component.scss',
-})
+}) 
 export class PropertiesComponent implements OnInit {
   currentPage = 1;
   pageSize = 3;

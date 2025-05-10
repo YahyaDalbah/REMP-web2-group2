@@ -65,12 +65,23 @@
 
   <!-- Action Buttons -->
   <div class="my-4">
-    <button *ngIf="property.forRent" class="btn btn-outline-success w-100 mb-4">
-      Rent Now
-    </button>
-    <button *ngIf="property.forSale" class="btn btn-success w-100">
-      Buy Now
-    </button>
+    <a href="review">
+      <button 
+        *ngIf="property.forRent" 
+        class="btn btn-outline-success w-100 mb-4">
+        Rent Now
+      </button>
+    </a>
+  
+    <a href="review">
+      <button 
+        *ngIf="property.forSale" 
+        class="btn btn-success w-100"
+        > 
+        Buy Now
+      </button>
+    </a> 
   </div>
-  <app-review />
-</div>
+  
+  
+  
