@@ -50,12 +50,12 @@
       <div class="col-12">
         <div class="form-check">
           <input
-            id="forRent"
+            id="isForRent"
             class="form-check-input"
             type="checkbox"
-            formControlName="forRent"
+            formControlName="isForRent"
           />
-          <label class="form-check-label" for="forRent"
+          <label class="form-check-label" for="isForRent"
             >Available for Rent</label
           >
         </div>
@@ -63,18 +63,18 @@
           <input
             class="form-check-input"
             type="checkbox"
-            formControlName="forSale"
-            id="forSale"
+            formControlName="isForSale"
+            id="isForSale"
           />
-          <label class="form-check-label" for="forSale"
+          <label class="form-check-label" for="isForSale"
             >Available for Sale</label
           >
         </div>
         <div
           *ngIf="
             showErrorMessage &&
-            !this.form.value.forSale &&
-            !this.form.value.forRent
+            !this.form.value.isForSale &&
+            !this.form.value.isForRent
           "
           class="text-danger"
         >

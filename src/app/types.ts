@@ -1,14 +1,15 @@
 export type Property = {
   id: number;
-  userId: number;
   title: string;
-  description: string;
-  location: string;
-  price: number;
   image: string;
   images: string[];
-  forRent: boolean;
-  forSale: boolean;
+  location: string;
+  description: string;
   bedrooms: number;
   bathrooms: number;
+  price: number;
+  owner_id: number;
+  isForRent: boolean;
+  isForSale: boolean;
+  status: string;
 };

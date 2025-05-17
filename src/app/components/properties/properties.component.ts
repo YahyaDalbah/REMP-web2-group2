@@ -16,12 +16,14 @@ export class PropertiesHomeComponent implements OnInit {
   propertiesService = inject(PropertyService);
   properties: Property[] = [];
   ngOnInit(): void {
-    this.properties = this.propertiesService.getProperties();
+    this.propertiesService.getProperties().subscribe({
+      next: (data) => this.properties = data
+    });
   }
 
   get filteredProperties() {
     return this.properties.filter((property) =>
-      this.isForRent() ? property.forRent : property.forSale
+      this.isForRent() ? property.isForRent : property.isForSale
     );
   }
 }

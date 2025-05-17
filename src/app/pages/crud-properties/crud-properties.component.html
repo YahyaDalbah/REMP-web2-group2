@@ -1,11 +1,45 @@
 <div class="container mt-4">
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2>Manage Properties</h2>
-    <a [routerLink]="`/profile/${userId}/properties/add`" class="btn btn-success">
+    <a
+      [routerLink]="`/profile/${userId}/properties/add`"
+      class="btn btn-success"
+    >
       <i class="bi bi-plus-lg"></i> Add New Property
     </a>
   </div>
-
+  <div class="status-filter">
+    <label>Filter by Status:</label>
+    <div class="radio-group">
+      <label>
+        <input
+          type="radio"
+          name="status"
+          value="available"
+          (change)="onStatusChange('available')"
+        />
+        Available
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="status"
+          value="rented"
+          (change)="onStatusChange('rented')"
+        />
+        Rented
+      </label>
+      <label>
+        <input
+          type="radio"
+          name="status"
+          value="sold"
+          (change)="onStatusChange('sold')"
+        />
+        Sold
+      </label>
+    </div>
+  </div>
   <div class="table-responsive">
     <table class="table table-striped table-hover">
       <thead>
@@ -13,8 +47,8 @@
           <th>Title</th>
           <th>Price</th>
           <th>Location</th>
-          <th>Status</th>
-          <th>Actions</th>
+          <th *ngIf="selectedStatus == 'available'">Status</th>
+          <th *ngIf="selectedStatus == 'available'">Actions</th>
         </tr>
       </thead>
       <tbody>
@@ -22,19 +56,19 @@
           <td>{{ property.title }}</td>
           <td>{{ property.price | currency }}</td>
           <td>{{ property.location }}</td>
-          <td>
-            <span class="badge bg-success" *ngIf="property.forRent"
+          <td *ngIf="selectedStatus == 'available'">
+            <span class="badge bg-success" *ngIf="property.isForRent"
               >For Rent</span
             >
             <span
               class="badge bg-danger {{
-                property.forRent && property.forSale ? 'ms-2' : ''
+                property.isForRent && property.isForSale ? 'ms-2' : ''
               }}"
-              *ngIf="property.forSale"
+              *ngIf="property.isForSale"
               >For Sale</span
             >
           </td>
-          <td>
+          <td *ngIf="selectedStatus == 'available'">
             <div class="btn-group">
               <a
                 [routerLink]="`/profile/${userId}/properties/edit/${property.id}`"
