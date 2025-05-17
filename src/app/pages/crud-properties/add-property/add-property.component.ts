@@ -38,43 +38,57 @@ export class AddPropertyComponent implements OnInit {
       bedrooms: [0, [Validators.required, Validators.min(0)]],
       bathrooms: [0, [Validators.required, Validators.min(0)]],
       location: ['', Validators.required],
-      forRent: [false],
-      forSale: [false],
+      isForRent: [false],
+      isForSale: [false],
       imageURL: [''],
     });
   }
 
   ngOnInit(): void {
+    let property: Property;
     const id = Number(this.route.snapshot.params['id']);
     if (id) {
-      const property = this.propertyService.getPropertyById(id);
-
-      if (property) {
-        this.isEdit = true;
-        this.currentImageUrls = property.images;
-        this.form.patchValue(property);
-      }
+      this.propertyService.getPropertyById(id).subscribe({
+        next: (data) => {
+          property = data;
+          if (property) {
+            this.isEdit = true;
+            this.currentImageUrls = property.images;
+            this.form.patchValue(property);
+          }
+          return property;
+        },
+      });
     }
   }
 
   onSubmit(): void {
     if (
       this.form.valid &&
-      (this.form.value.forRent || this.form.value.forSale)
+      (this.form.value.isForRent || this.form.value.isForSale)
     ) {
       const property: Property = {
         ...this.form.value,
-        userId: this.userId,
+        owner_id: this.userId,
         image: this.currentImageUrls[0],
         images: this.currentImageUrls,
+        status: 'available',
+        price: parseFloat(this.form.value.price),
       };
 
       if (this.isEdit) {
-        this.propertyService.updateProperty(property);
+        console.log(property.id);
+        console.log(property);
+        this.propertyService.updateProperty(property.id, property).subscribe({
+          next: (data) =>
+            this.router.navigate([`/profile/${this.userId}/properties`]),
+        });
       } else {
-        this.propertyService.addProperty(property);
+        this.propertyService.createProperty(property).subscribe({
+          next: (data) =>
+            this.router.navigate([`/profile/${this.userId}/properties`]),
+        });
       }
-      this.router.navigate([`/profile/${this.userId}/properties`]);
     } else {
       this.showErrorMessage = true;
     }

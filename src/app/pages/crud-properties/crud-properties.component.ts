@@ -15,15 +15,31 @@ export class CrudPropertiesComponent {
   propertyService = inject(PropertyService);
   userId: number;
   properties: Property[] = [];
+  selectedStatus: string = 'available';
 
   constructor(private route: ActivatedRoute) {
     this.userId = Number(this.route.snapshot.params['userId']);
-    this.properties = this.propertyService.getPropertiesByUserId(this.userId);
+    this.loadProperties();
+  }
+  private loadProperties() {
+    this.propertyService.getPropertiesByOwnerId(this.userId, this.selectedStatus)
+      .subscribe({
+        next: (data) => this.properties = data,
+        error: (err) => console.error('Error loading properties:', err)
+      });
   }
 
   deleteProperty(id: number): void {
-    this.propertyService.deleteProperty(id);
-    this.properties = this.propertyService.getPropertiesByUserId(this.userId);
-    this.selectedProperty = null;
+    this.propertyService.deleteProperty(id).subscribe({
+      next: () => {
+        this.loadProperties();
+        this.selectedProperty = null;
+      },
+      error: (err) => console.error('Error deleting property:', err)
+    });
+  }
+  onStatusChange(status: string) {
+    this.selectedStatus = status;
+    this.loadProperties();
   }
 }

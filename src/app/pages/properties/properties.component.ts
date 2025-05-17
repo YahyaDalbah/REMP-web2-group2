@@ -10,11 +10,11 @@ import { FormGroup, FormBuilder, ReactiveFormsModule } from '@angular/forms';
   imports: [PropertieCardComponent, CommonModule, ReactiveFormsModule],
   templateUrl: './properties.component.html',
   styleUrl: './properties.component.scss',
-}) 
+})
 export class PropertiesComponent implements OnInit {
   currentPage = 1;
   pageSize = 3;
-  propertiyService = inject(PropertyService);
+  propertyService = inject(PropertyService);
   properties: Property[] = [];
   filteredProperties: Property[] = [];
   private fb = inject(FormBuilder);
@@ -37,8 +37,8 @@ export class PropertiesComponent implements OnInit {
           property.title
             .toLowerCase()
             .includes(filters.search.toLowerCase())) &&
-        (!filters.forRent || property.forRent) &&
-        (!filters.forSale || property.forSale) &&
+        (!filters.forRent || property.isForRent) &&
+        (!filters.forSale || property.isForSale) &&
         (!filters.bedrooms || filters.bedrooms == property.bedrooms) &&
         (!filters.bathrooms || filters.bathrooms == property.bathrooms) &&
         (!filters.minPrice || property.price >= filters.minPrice) &&
@@ -49,8 +49,12 @@ export class PropertiesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.properties = this.propertiyService.getProperties();
-    this.applyFilters();
+    this.propertyService.getProperties().subscribe({
+      next: (data) => {
+        this.properties = data;
+        this.applyFilters();
+      },
+    });
   }
 
   get paginatedProperties() {

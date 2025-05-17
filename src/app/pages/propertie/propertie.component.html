@@ -21,15 +21,17 @@
 
   <!-- Status Badges -->
   <div class="mt-3">
-    <span *ngIf="property.forRent" class="badge bg-success me-2">For Rent</span>
-    <span *ngIf="property.forSale" class="badge bg-danger">For Sale</span>
+    <span *ngIf="property.isForRent" class="badge bg-success me-2"
+      >For Rent</span
+    >
+    <span *ngIf="property.isForSale" class="badge bg-danger">For Sale</span>
   </div>
 
   <!-- Description -->
   <p class="mt-4">{{ property.description }}</p>
 
   <!-- Amenities -->
-  <div style="color: var(--green);" class="d-flex mt-4 fw-bold">
+  <div style="color: var(--green)" class="d-flex mt-4 fw-bold">
     <div class="d-flex align-items-center me-4">
       <img width="35" src="assets/bed.png" class="me-2" />
       <span>{{ property.bedrooms }} Bedrooms</span>
@@ -42,7 +44,7 @@
   </div>
 
   <!-- Add to Favorites -->
-  <button class="btn btn-danger w-100 mt-4 " (click)="toggleFavorite()">
+  <button class="btn btn-danger w-100 mt-4" (click)="toggleFavorite()">
     <i class="bi {{ isFavorite ? 'bi-heart-fill' : 'bi-heart' }} me-2"></i>
     {{ isFavorite ? "Remove from Favorites" : "Add to Favorites" }}
   </button>
@@ -66,22 +68,18 @@
   <!-- Action Buttons -->
   <div class="my-4">
     <a href="review">
-      <button 
-        *ngIf="property.forRent" 
-        class="btn btn-outline-success w-100 mb-4">
+      <button
+        *ngIf="property.isForRent"
+        class="btn btn-outline-success w-100 mb-4"
+      >
         Rent Now
       </button>
     </a>
-  
+
     <a href="review">
-      <button 
-        *ngIf="property.forSale" 
-        class="btn btn-success w-100"
-        > 
+      <button *ngIf="property.isForSale" class="btn btn-success w-100">
         Buy Now
       </button>
-    </a> 
+    </a>
   </div>
-  
-  
-  
+</div>
