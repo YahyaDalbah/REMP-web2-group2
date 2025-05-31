@@ -7,8 +7,10 @@ import { AddPropertyComponent } from './pages/crud-properties/add-property/add-p
 import { LoginComponent } from './components/login/login.component';
 import { SignUpComponent } from './components/sign-up/sign-up.component';
 import { ProfileComponent } from './pages/profile/profile.component';
-import { ReviewComponent } from './review/review.component'; // Import ReviewComponent
+import { ReviewComponent } from './review/review.component'; 
 import { RatingModalComponent } from './rating-modal/rating-modal.component';
+
+
 
 export const routes: Routes = [
   {
@@ -95,11 +97,8 @@ export const routes: Routes = [
       ).then((m) => m.InappropriateListingsComponent),
   },
   {
-    path: 'dashboard/reports',
-    loadComponent: () =>
-      import('./admin-dashboard/reports/reports.component').then(
-        (m) => m.ReportsComponent
-      ),
-  },
+  path: 'admin/reports',
+  loadComponent: () => import('./admin-dashboard/reports/reports.component').then(m => m.ReportsComponent)
+}
 ];
  
