@@ -97,8 +97,12 @@ export const routes: Routes = [
       ).then((m) => m.InappropriateListingsComponent),
   },
   {
-  path: 'admin/reports',
-  loadComponent: () => import('./admin-dashboard/reports/reports.component').then(m => m.ReportsComponent)
-}
+  path: 'dashboard/reports',
+  loadComponent: () =>
+    import('./admin-dashboard/reports/reports.component').then(
+      (m) => m.ReportsComponent
+    ),
+},
+
 ];
  
