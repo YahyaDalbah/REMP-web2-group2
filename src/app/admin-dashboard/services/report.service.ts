@@ -114,15 +114,14 @@ export class ReportService {
     return this.getReportById(reportType);
   }
 
-  exportReportToPDF(reportId: string): Observable<boolean> {
-    // In a real application, this would generate a PDF
-    // For now, we'll just simulate success
-    return of(true);
-  }
+exportReportToPDF(reportId: string): Observable<Blob> {
+  const blob = new Blob(['Fake PDF content'], { type: 'application/pdf' });
+  return of(blob);
+}
 
-  exportReportToExcel(reportId: string): Observable<boolean> {
-    // In a real application, this would generate an Excel file
-    // For now, we'll just simulate success
-    return of(true);
-  }
+exportReportToExcel(reportId: string): Observable<Blob> {
+  const blob = new Blob(['Fake Excel content'], { type: 'application/vnd.openxmlformats-officedocument.spreadsheetml.sheet' });
+  return of(blob);
+}
+
 }

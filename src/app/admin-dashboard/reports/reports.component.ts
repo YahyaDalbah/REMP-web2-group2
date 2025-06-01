@@ -2,70 +2,68 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReportService } from '../services/report.service';
-import { Report } from '../models/report.model';
+import { Report } from '../../models/report.model'; // عدلي المسار إذا لزم
 
 @Component({
-  selector: 'app-reports',
   standalone: true,
-  imports: [CommonModule, FormsModule],
+  selector: 'app-reports',
   templateUrl: './reports.component.html',
-  styleUrls: ['./reports.component.css']
+  styleUrls: ['./reports.component.css'],
+  imports: [CommonModule, FormsModule]
 })
 export class ReportsComponent implements OnInit {
   reports: Report[] = [];
-  selectedReport: Report | null = null;
-  reportTypes = [
-    { id: 'sales-monthly', name: 'Monthly Sales' },
-    { id: 'property-types', name: 'Property Types Distribution' },
-    { id: 'user-registrations', name: 'User Registrations' },
-    { id: 'transaction-status', name: 'Transaction Status' }
-  ];
   selectedReportType: string = '';
+  selectedReport: Report | null = null;
 
-  constructor(private reportService: ReportService) { }
+  reportTypes = [
+    { id: 'properties', name: 'Properties Report' },
+    { id: 'users', name: 'Users Report' },
+    { id: 'transactions', name: 'Transactions Report' }
+  ];
+
+  constructor(private reportService: ReportService) {}
 
   ngOnInit(): void {
     this.loadReports();
   }
 
-  loadReports(): void {
-    this.reportService.getReports().subscribe(reports => {
-      this.reports = reports;
+  loadReports() {
+    this.reportService.getReports().subscribe((data: Report[]) => {
+      this.reports = data;
     });
   }
 
-  viewReport(report: Report): void {
+  generateReport() {
+  if (!this.selectedReportType) return;
+
+  this.reportService.generateReport(this.selectedReportType).subscribe((report: Report | undefined) => {
+    if (report) {
+      this.reports.push(report);
+    }
+  });
+}
+
+
+  viewReport(report: Report) {
     this.selectedReport = report;
   }
 
-  closeReport(): void {
+  closeReport() {
     this.selectedReport = null;
   }
 
-  generateReport(): void {
-    if (this.selectedReportType) {
-      this.reportService.generateReport(this.selectedReportType).subscribe(report => {
-        if (report) {
-          alert(`Report "${report.title}" generated successfully!`);
-          this.loadReports();
-        }
-      });
-    }
-  }
-
-  exportToPDF(reportId: string): void {
-    this.reportService.exportReportToPDF(reportId).subscribe(success => {
-      if (success) {
-        alert('Report exported to PDF successfully!');
-      }
+  exportToPDF(reportId: string) {
+    this.reportService.exportReportToPDF(reportId).subscribe((blob: Blob) => {
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
     });
   }
 
-  exportToExcel(reportId: string): void {
-    this.reportService.exportReportToExcel(reportId).subscribe(success => {
-      if (success) {
-        alert('Report exported to Excel successfully!');
-      }
+  exportToExcel(reportId: string) {
+    this.reportService.exportReportToExcel(reportId).subscribe((blob: Blob) => {
+      const url = window.URL.createObjectURL(blob);
+      window.open(url);
     });
   }
 }
