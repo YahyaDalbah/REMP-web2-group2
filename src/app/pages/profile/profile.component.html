@@ -1,2 +1,78 @@
-<button [routerLink]="`/profile/properties`">go to properties</button>
-<button [routerLink]="`/login`">logout</button>
+<div class="container py-4">
+  <div class="d-flex justify-content-between align-items-center mb-4">
+    <h2>My Profile</h2>
+    <div>
+      <button class="btn btn-primary me-2" [routerLink]="`/profile/properties`">
+        <i class="bi bi-house-door me-1"></i> My Properties
+      </button>
+      <button class="btn btn-outline-danger" [routerLink]="`/login`">
+        <i class="bi bi-box-arrow-right me-1"></i> Logout
+      </button>
+    </div>
+  </div>
+
+  <div class="card shadow-sm">
+    <div class="card-header bg-white">
+      <h4 class="mb-0">Transaction History</h4>
+    </div>
+    <div class="card-body p-0">
+      <div class="table-responsive">
+        <table class="table table-hover align-middle mb-0">
+          <thead class="table-light">
+            <tr>
+              <th>Property</th>
+              <th>Type</th>
+              <th>Amount</th>
+              <th>Date</th>
+              <th>Status</th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr *ngFor="let transaction of transactions">
+              <td class="fw-semibold">
+                Property #{{ findProperty(transaction.property_id)?.title }}
+              </td>
+              <td>
+                <span
+                  class="badge"
+                  [ngClass]="{
+                    'bg-success': transaction.transaction_type === 'sale',
+                    'bg-info': transaction.transaction_type === 'rent'
+                  }"
+                >
+                  {{ transaction.transaction_type | titlecase }}
+                </span>
+              </td>
+              <td class="fw-bold">{{ transaction.amount | currency }}</td>
+              <td>
+                <div *ngIf="transaction.transaction_type === 'rent'">
+                  <small class="d-block text-muted"
+                    >Start: {{ transaction.start_date | date }}</small
+                  >
+                  <small class="d-block text-muted"
+                    >End: {{ transaction.end_date | date }}</small
+                  >
+                </div>
+                <div *ngIf="transaction.transaction_type === 'sale'">
+                  {{ transaction.start_date | date }}
+                </div>
+              </td>
+              <td>
+                <a
+                  [routerLink]="['/properties', transaction.property_id]"
+                  >check property</a
+                >
+              </td>
+            </tr>
+            <tr *ngIf="transactions.length === 0">
+              <td colspan="5" class="text-center py-5 text-muted">
+                <i class="bi bi-receipt display-5 d-block mb-2"></i>
+                No transactions found
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+  </div>
+</div>
