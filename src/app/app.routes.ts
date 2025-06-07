@@ -38,15 +38,15 @@ export const routes: Routes = [
     component: ProfileComponent,
   },
   {
-    path: 'profile/:userId/properties',
+    path: 'profile/properties',
     component: CrudPropertiesComponent,
   },
   {
-    path: 'profile/:userId/properties/add',
+    path: 'profile/properties/add',
     component: AddPropertyComponent,
   },
   {
-    path: 'profile/:userId/properties/edit/:id',
+    path: 'profile/properties/edit/:id',
     component: AddPropertyComponent,
   },
   {

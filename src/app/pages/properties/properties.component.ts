@@ -49,7 +49,7 @@ export class PropertiesComponent implements OnInit {
   }
 
   ngOnInit(): void {
-    this.propertyService.getProperties().subscribe({
+    this.propertyService.getProperties("available").subscribe({
       next: (data) => {
         this.properties = data;
         this.applyFilters();

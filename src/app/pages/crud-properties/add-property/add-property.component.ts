@@ -21,7 +21,8 @@ export class AddPropertyComponent implements OnInit {
   isEdit = false;
   currentImageUrls: string[] = [];
   showErrorMessage = false;
-  userId: Number;
+  selectedFiles: File[] = [];
+  uploadProgress: number | null = null;
 
   constructor(
     private fb: FormBuilder,
@@ -29,7 +30,6 @@ export class AddPropertyComponent implements OnInit {
     private router: Router,
     private propertyService: PropertyService
   ) {
-    this.userId = Number(this.route.snapshot.params['userId']);
     this.form = this.fb.group({
       id: [0],
       title: ['', Validators.required],
@@ -69,7 +69,6 @@ export class AddPropertyComponent implements OnInit {
     ) {
       const property: Property = {
         ...this.form.value,
-        owner_id: this.userId,
         image: this.currentImageUrls[0],
         images: this.currentImageUrls,
         status: 'available',
@@ -77,16 +76,12 @@ export class AddPropertyComponent implements OnInit {
       };
 
       if (this.isEdit) {
-        console.log(property.id);
-        console.log(property);
         this.propertyService.updateProperty(property.id, property).subscribe({
-          next: (data) =>
-            this.router.navigate([`/profile/${this.userId}/properties`]),
+          next: (data) => this.router.navigate([`/profile/properties`]),
         });
       } else {
         this.propertyService.createProperty(property).subscribe({
-          next: (data) =>
-            this.router.navigate([`/profile/${this.userId}/properties`]),
+          next: (data) => this.router.navigate([`/profile/properties`]),
         });
       }
     } else {
@@ -103,13 +98,39 @@ export class AddPropertyComponent implements OnInit {
     );
   }
 
-  addImage(event: Event): void {
-    event.preventDefault();
-    const imageUrl = this.form.get('imageURL')?.value;
-    if (imageUrl) {
-      this.currentImageUrls.push(imageUrl);
-      this.form.get('imageURL')?.reset();
+  onFileSelected(event: Event): void {
+    const input = event.target as HTMLInputElement;
+    if (input.files && input.files.length > 0) {
+      this.selectedFiles = Array.from(input.files);
     }
+  }
+
+  uploadImages(): void {
+    if (this.selectedFiles.length === 0) return;
+
+    this.uploadProgress = 0;
+
+    this.propertyService.uploadImages(this.selectedFiles).subscribe({
+      next: (event: any) => {
+        if (event.type === 1 && event.loaded && event.total) {
+          // Upload progress
+          this.uploadProgress = Math.round((100 * event.loaded) / event.total);
+        } else if (event.type === 4) {
+          // Upload complete
+          this.currentImageUrls = [
+            ...this.currentImageUrls,
+            ...event.body.urls,
+          ];
+          this.selectedFiles = [];
+          this.uploadProgress = null;
+        }
+      },
+      error: (error: any) => {
+        console.error('Upload failed:', error);
+        this.uploadProgress = null;
+        // Handle error (show message to user)
+      },
+    });
   }
 
   removeImage(index: number): void {

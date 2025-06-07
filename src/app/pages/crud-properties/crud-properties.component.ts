@@ -13,16 +13,14 @@ import { ActivatedRoute, RouterLink } from '@angular/router';
 export class CrudPropertiesComponent {
   selectedProperty: Property | null = null;
   propertyService = inject(PropertyService);
-  userId: number;
   properties: Property[] = [];
   selectedStatus: string = 'available';
 
   constructor(private route: ActivatedRoute) {
-    this.userId = Number(this.route.snapshot.params['userId']);
     this.loadProperties();
   }
   private loadProperties() {
-    this.propertyService.getPropertiesByOwnerId(this.userId, this.selectedStatus)
+    this.propertyService.getMyProperties(this.selectedStatus)
       .subscribe({
         next: (data) => this.properties = data,
         error: (err) => console.error('Error loading properties:', err)

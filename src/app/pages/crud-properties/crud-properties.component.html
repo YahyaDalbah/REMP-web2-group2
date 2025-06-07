@@ -2,7 +2,7 @@
   <div class="d-flex justify-content-between align-items-center mb-4">
     <h2>Manage Properties</h2>
     <a
-      [routerLink]="`/profile/${userId}/properties/add`"
+      [routerLink]="`/profile/properties/add`"
       class="btn btn-success"
     >
       <i class="bi bi-plus-lg"></i> Add New Property
@@ -71,7 +71,7 @@
           <td *ngIf="selectedStatus == 'available'">
             <div class="btn-group">
               <a
-                [routerLink]="`/profile/${userId}/properties/edit/${property.id}`"
+                [routerLink]="`/profile/properties/edit/${property.id}`"
                 class="btn btn-primary btn-sm"
               >
                 <i class="bi bi-pencil"></i>

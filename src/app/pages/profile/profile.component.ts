@@ -5,8 +5,6 @@ import { RouterLink } from '@angular/router';
   selector: 'app-profile',
   imports: [RouterLink],
   templateUrl: './profile.component.html',
-  styleUrl: './profile.component.scss'
+  styleUrl: './profile.component.scss',
 })
-export class ProfileComponent {
-  userId = 5;
-}
+export class ProfileComponent {}
