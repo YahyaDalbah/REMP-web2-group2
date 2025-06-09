@@ -10,7 +10,7 @@ import { FormsModule } from '@angular/forms';
     FormsModule
   ],
   templateUrl: './review-page.component.html',
-  styleUrls: ['./review-page.component.css']
+  styleUrls: ['./review-page.component.scss']
 })
 export class ReviewPageComponent {
   showModal = false;
