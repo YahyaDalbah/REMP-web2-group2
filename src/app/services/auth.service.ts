@@ -15,11 +15,6 @@ export class AuthService {
   }
 
   register(userData: any) {
-    const headers = new HttpHeaders({
-      'Content-Type': 'application/json',
-      Accept: 'application/json',
-    });
-
-    return this.http.post(`${this.baseUrl}/register`, userData, { headers });
+    return this.http.post(`${this.baseUrl}/register`, userData);
   }
 }
