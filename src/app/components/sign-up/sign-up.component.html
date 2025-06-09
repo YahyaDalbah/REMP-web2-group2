@@ -1,38 +1,82 @@
 <div class="login-container">
   <div class="login-box">
-    <p class="signup-text">Have an account? <a routerLink="/login">Login</a></p>
+    <p class="signup-text">
+      Have an account?
+      <a [routerLink]="['/login']" style="cursor:pointer">Login</a>
+    </p>
     <h2 class="login-title">Sign Up</h2>
 
     <form (ngSubmit)="onRegister()" #signUpForm="ngForm">
       <div class="double-input">
         <div class="input-group">
           <i class="fa fa-user"></i>
-          <input type="text" placeholder="Firstname" name="firstname" ngModel required />
+          <input
+            type="text"
+            placeholder="Firstname"
+            name="firstname"
+            [(ngModel)]="firstname"
+            required
+          />
         </div>
         <div class="input-group">
           <i class="fa fa-user"></i>
-          <input type="text" placeholder="Lastname" name="lastname" ngModel required />
+          <input
+            type="text"
+            placeholder="Lastname"
+            name="lastname"
+            [(ngModel)]="lastname"
+            required
+          />
         </div>
       </div>
 
       <div class="input-group">
         <i class="fa fa-envelope"></i>
-        <input type="email" placeholder="Email" name="email" ngModel required />
+        <input
+          type="email"
+          placeholder="Email"
+          name="email"
+          [(ngModel)]="email"
+          required
+        />
       </div>
 
       <div class="input-group">
         <i class="fa fa-lock"></i>
-        <input type="password" placeholder="Password" name="password" ngModel required />
+        <input
+          type="password"
+          placeholder="Password"
+          name="password"
+          [(ngModel)]="password"
+          required
+        />
+      </div>
+
+      <div class="input-group">
+        <i class="fa fa-lock"></i>
+        <input
+          type="password"
+          placeholder="Confirm Password"
+          name="password_confirmation"
+          [(ngModel)]="passwordConfirmation"
+          required
+        />
+      </div>
+
+      <div class="input-group">
+        <i class="fa fa-user-tag"></i>
+        <select name="user_type" [(ngModel)]="userType" required>
+          <option value="" disabled selected>Select User Type</option>
+          <option value="buyer">Buyer</option>
+          <option value="seller">Seller</option>
+        </select>
       </div>
 
       <button type="submit" class="sign-in-btn">Register</button>
 
       <div class="options">
-        <label>
-          <input type="checkbox" name="remember" ngModel />
-          Remember Me
-        </label>
-        <a href="#">Terms & conditions</a>
+
+        
       </div>
     </form>
   </div>
