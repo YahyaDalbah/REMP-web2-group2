@@ -3,15 +3,13 @@
     <h3>Admin Dashboard</h3>
   </div>
   <div class="sidebar-menu">
-    <ul>
-      @for (item of menuItems; track item.path) {
-        <li>
-          <a [routerLink]="item.path" routerLinkActive="active">
-            <span class="icon">{{ item.icon }}</span>
-            <span class="title">{{ item.title }}</span>
-          </a>
-        </li>
-      }
-    </ul>
+<ul>
+  <li *ngFor="let item of menuItems">
+    <a [routerLink]="item.path" routerLinkActive="active">
+      <span class="icon material-icons">{{ item.icon }}</span>
+      <span class="title">{{ item.title }}</span>
+    </a>
+  </li>
+</ul>
   </div>
 </div>
