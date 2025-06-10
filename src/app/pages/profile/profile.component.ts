@@ -32,7 +32,10 @@ export class ProfileComponent {
       },
     });
   }
-  findProperty(propertId: number){
+  findProperty(propertId: number) {
     return this.properties.find((property) => propertId == property.id);
+  }
+  logout() {
+    localStorage.removeItem('token');
   }
 }

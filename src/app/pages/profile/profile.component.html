@@ -5,7 +5,11 @@
       <button class="btn btn-primary me-2" [routerLink]="`/profile/properties`">
         <i class="bi bi-house-door me-1"></i> My Properties
       </button>
-      <button class="btn btn-outline-danger" [routerLink]="`/login`">
+      <button
+        class="btn btn-outline-danger"
+        (click)="logout()"
+        [routerLink]="`/login`"
+      >
         <i class="bi bi-box-arrow-right me-1"></i> Logout
       </button>
     </div>
@@ -30,7 +34,7 @@
           <tbody>
             <tr *ngFor="let transaction of transactions">
               <td class="fw-semibold">
-                Property #{{ findProperty(transaction.property_id)?.title }}
+                {{ findProperty(transaction.property_id)?.title }}
               </td>
               <td>
                 <span
@@ -58,8 +62,7 @@
                 </div>
               </td>
               <td>
-                <a
-                  [routerLink]="['/properties', transaction.property_id]"
+                <a [routerLink]="['/properties', transaction.property_id]"
                   >check property</a
                 >
               </td>
