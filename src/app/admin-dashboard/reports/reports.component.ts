@@ -2,7 +2,7 @@ import { Component, OnInit } from '@angular/core';
 import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { ReportService } from '../services/report.service';
-import { Report } from '../../models/report.model'; // عدلي المسار إذا لزم
+import { Report } from '../../models/report.model';
 
 @Component({
   standalone: true,
@@ -37,12 +37,30 @@ export class ReportsComponent implements OnInit {
   generateReport() {
   if (!this.selectedReportType) return;
 
-  this.reportService.generateReport(this.selectedReportType).subscribe((report: Report | undefined) => {
-    if (report) {
-      this.reports.push(report);
-    }
+  this.reportService.generateReport(this.selectedReportType).subscribe((data) => {
+    const report: Report = {
+      id: this.selectedReportType + '-' + Date.now(),
+      title: this.selectedReportType.toUpperCase() + ' Report',
+      description: 'Auto-generated report from backend data',
+      type: 'bar',
+      data: {
+        labels: Object.keys(data),
+        datasets: [{
+          label: 'Counts',
+          data: Object.values(data),
+          backgroundColor: 'rgba(54, 162, 235, 0.5)',
+          borderColor: 'rgba(54, 162, 235, 1)',
+          borderWidth: 1
+        }]
+      },
+      createdAt: new Date()
+    };
+
+    this.reports.push(report);
   });
 }
+
+
 
 
   viewReport(report: Report) {
