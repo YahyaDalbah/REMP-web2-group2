@@ -26,10 +26,12 @@ export class TransactionsComponent implements OnInit {
   }
 
   loadTransactions(): void {
+    
     this.transactionService.getTransactions().subscribe({
       next: (data) => {
-        this.transactions = data;
-        this.applyFilters();
+        console.log(data)
+        this.filteredTransactions = data;
+        //this.applyFilters();
       },
       error: (err) => {
         console.error('Failed to load transactions:', err);
@@ -38,15 +40,15 @@ export class TransactionsComponent implements OnInit {
   }
 
   applyFilters(): void {
-    this.filteredTransactions = this.transactions.filter(transaction => {
-      const matchesSearch = transaction.propertyTitle.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-                             transaction.buyerName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
-                             transaction.sellerName.toLowerCase().includes(this.searchTerm.toLowerCase());
+    // this.filteredTransactions = this.transactions.filter(transaction => {
+    //   const matchesSearch = transaction.propertyTitle.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+    //                          transaction.buyerName.toLowerCase().includes(this.searchTerm.toLowerCase()) ||
+    //                          transaction.sellerName.toLowerCase().includes(this.searchTerm.toLowerCase());
 
-      const matchesStatus = this.statusFilter === 'all' || transaction.status === this.statusFilter;
+    //   const matchesStatus = this.statusFilter === 'all' || transaction.status === this.statusFilter;
 
-      return matchesSearch && matchesStatus;
-    });
+    //   return matchesSearch && matchesStatus;
+    // });
   }
 
   onSearch(): void {

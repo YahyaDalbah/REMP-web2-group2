@@ -21,8 +21,8 @@ export class UserService {
     return this.http.get<User[]>(this.apiUrl);
   }
 
-  updateUserStatus(id: number, status: string): Observable<any> {
-    return this.http.patch(`${this.apiUrl}/${id}/status`, { status });
+  updateUserStatus(id: number, type: string): Observable<any> {
+    return this.http.patch(`${this.apiUrl}/${id}/status`, { type });
   }
 
  

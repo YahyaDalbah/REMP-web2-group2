@@ -3,6 +3,7 @@ import { CommonModule } from '@angular/common';
 import { FormsModule } from '@angular/forms';
 import { UserService } from '../services/user.service';
 import { User } from '../models/user.model';
+import { log } from 'console';
 
 @Component({
   selector: 'app-users-management',
@@ -21,7 +22,8 @@ export class UsersManagementComponent implements OnInit {
 
   ngOnInit(): void {
     this.loadUsers();
-  }
+    console.log (this.users)
+  } 
 
   loadUsers(): void {
     this.userService.getUsers().subscribe(users => {
@@ -30,16 +32,17 @@ export class UsersManagementComponent implements OnInit {
     });
   }
 
-  applyFilters(): void {
-    this.filteredUsers = this.users.filter(user => {
-      const matchesSearch = user.name.toLowerCase().includes(this.searchTerm.toLowerCase()) || 
-                           user.email.toLowerCase().includes(this.searchTerm.toLowerCase());
-      
-      const matchesStatus = this.statusFilter === 'all' || user.status === this.statusFilter;
-      
-      return matchesSearch && matchesStatus;
-    });
-  }
+ applyFilters(): void {
+  this.filteredUsers = this.users.filter(user => {
+    const matchesSearch = user.name.toLowerCase().includes(this.searchTerm.toLowerCase()) || 
+                         user.email.toLowerCase().includes(this.searchTerm.toLowerCase());
+    
+    const matchesStatus = this.statusFilter === 'all' || user.type === this.statusFilter;
+
+    return matchesSearch && matchesStatus;
+  });
+}
+
 
   onSearch(): void {
     this.applyFilters();
@@ -49,19 +52,19 @@ export class UsersManagementComponent implements OnInit {
     this.applyFilters();
   }
 
-  updateUserStatus(user: User, status: 'active' | 'inactive' | 'suspended'): void {
-    this.userService.updateUserStatus(user.id, status).subscribe(() => {
-      user.status = status;
-    });
-  }
+//   updateUserStatus(user: User, type: 'admin' | 'buyer' | 'seller'): void {
+//   this.userService.updateUserStatus(user.id, type).subscribe(() => {
+//     user.type = type;
+//   });
+// }
+ 
 
   deleteUser(id: number): void {
-    if (confirm('Are you sure you want to delete this user?')) {
-      this.userService.deleteUser(id).subscribe(success => {
-        if (success) {
-          this.loadUsers();
-        }
-      });
-    }
+  if (confirm('Are you sure you want to delete this user?')) {
+    this.userService.deleteUser(id).subscribe(() => {
+      this.loadUsers(); 
+    });
   }
+}
+
 }
