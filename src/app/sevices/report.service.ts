@@ -11,7 +11,15 @@ export class ReportService {
   private readonly http = inject(HttpClient);
   private readonly apiUrl = 'http://127.0.0.1:8000/api/reports';
 
-  
+  getOverview(): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/overview`);
+}
+
+getMonthly(): Observable<any> {
+  return this.http.get<any>(`${this.apiUrl}/monthly`);
+}
+
+
   getReports(): Observable<Report[]> {
     return this.http.get<Report[]>(this.apiUrl);
   }
@@ -26,6 +34,7 @@ export class ReportService {
     return this.http.get<boolean>(`${this.apiUrl}/${reportId}/export/pdf`);
   }
 
+   
   
   exportReportToExcel(reportId: string): Observable<boolean> {
     return this.http.get<boolean>(`${this.apiUrl}/${reportId}/export/excel`);
