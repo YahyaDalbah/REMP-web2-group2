@@ -15,7 +15,8 @@ export class TransactionService {
   private getAuthHeaders(): HttpHeaders {
     const token = localStorage.getItem('token');
     return new HttpHeaders({
-      Authorization: `Bearer ${token}`
+      Authorization: `Bearer ${token}`,
+      'Accept': 'application/json',
     });
   }
 

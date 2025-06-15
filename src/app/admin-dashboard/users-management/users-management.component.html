@@ -37,29 +37,34 @@
         </tr>
       </thead>
       <tbody>
-        @for (user of filteredUsers; track user.id) {
-          <tr>
-            <td>{{ user.id }}</td>
-            <td>{{ user.name }}</td>
-            <td>{{ user.email }}</td>
-            <td>{{ user.role }}</td>
-            <td>
-              <span class="status-badge {{ user.status }}">{{ user.status }}</span>
-            </td>
-            <td>{{ user.registrationDate | date:'mediumDate' }}</td>
-            <td class="actions">
-              <button class="action-btn activate" (click)="updateUserStatus(user, 'active')" [disabled]="user.status === 'active'">Activate</button>
-              <button class="action-btn suspend" (click)="updateUserStatus(user, 'suspended')" [disabled]="user.status === 'suspended'">Suspend</button>
-              <button class="action-btn delete" (click)="deleteUser(user.id)">Delete</button>
-            </td>
-          </tr>
-        }
-        @empty {
-          <tr>
-            <td colspan="7" class="no-data">No users found</td>
-          </tr>
-        }
-      </tbody>
+  @for (user of filteredUsers; track user.id) {
+    <tr>
+      <td>{{ user.id }}</td>
+      <td>{{ user.name }}</td>
+      <td>{{ user.email }}</td>
+
+      <td>{{ user.type }}</td>
+
+      <td>
+        <span class="status-badge" [ngClass]="user.deleted_at ? 'suspended' : 'active'">
+          {{ user.deleted_at ? 'Suspended' : 'Active' }}
+        </span>
+      </td>
+
+      <td>{{ user.created_at | date:'mediumDate' }}</td>
+
+      <td class="actions">
+        <button class="action-btn delete" (click)="deleteUser(user.id)">Delete</button>
+      </td>
+    </tr>
+  }
+  @empty {
+    <tr>
+      <td colspan="7" class="no-data">No users found</td>
+    </tr>
+  }
+</tbody>
+
     </table>
   </div>
 </div>

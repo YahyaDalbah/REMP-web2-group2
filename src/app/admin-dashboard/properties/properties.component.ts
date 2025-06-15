@@ -29,6 +29,7 @@ export class AdminPropertiesComponent implements OnInit {
     this.propertyService.getProperties().subscribe(properties => {
       this.properties = properties;
       this.applyFilters();
+      console.log(this.properties)
     });
   }
 

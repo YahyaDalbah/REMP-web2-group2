@@ -45,7 +45,7 @@ export class DashboardComponent implements OnInit {
     // Load user stats
     this.userService.getUsers().subscribe(users => {
       this.stats.totalUsers = users.length;
-      this.stats.activeUsers = users.filter(user => user.status === 'active').length;
+      //this.stats.activeUsers = users.filter(user => user.status === 'active').length;
     });
 
     // Load property stats

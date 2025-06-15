@@ -9,7 +9,7 @@ import { TransactionService } from '../../sevices/transactions.service';
 
 @Component({
   selector: 'app-propertie',
-  imports: [CommonModule, ImageSliderComponent, ReviewComponent],
+  imports: [CommonModule, ImageSliderComponent],
   templateUrl: './propertie.component.html',
   styleUrl: './propertie.component.scss',
 })
